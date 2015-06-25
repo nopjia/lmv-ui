@@ -1,11 +1,11 @@
 (function() {
   Polymer({
-    is: "lmv-button",
+    is: "lmv-sample",
 
     properties: {
-      foo: {
+      hello: {
         type: String,
-        value: "bar",
+        value: "LMV Rocks",
         notify: true
       }
     }

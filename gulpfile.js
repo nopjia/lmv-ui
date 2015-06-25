@@ -37,7 +37,13 @@ var styleTask = function (stylesPath, srcs) {
   return gulp.src(srcs.map(function(src) {
       return path.join("app", stylesPath, src);
     }))
-    .pipe($.changed(stylesPath, {extension: ".css"}))
+    .pipe($.changed(stylesPath, {extension: ".scss"}))
+    .pipe($.if("*.scss", $.sass({
+      outputStyle: "nested", // libsass doesn"t support expanded yet
+      precision: 10,
+      includePaths: ["."],
+      onError: console.error.bind(console, "Sass error:")
+    })))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest(".tmp/" + stylesPath))
     .pipe($.if("*.css", $.cssmin()))
@@ -47,11 +53,11 @@ var styleTask = function (stylesPath, srcs) {
 
 // Compile and Automatically Prefix Stylesheets
 gulp.task("styles", function () {
-  return styleTask("styles", ["**/*.css"]);
+  return styleTask("styles", ["*.css", "*.scss"]);
 });
 
 gulp.task("elements", function () {
-  return styleTask("elements", ["**/*.css"]);
+  return styleTask("elements", ["**/*.css", "**/*.scss"]);
 });
 
 // Lint JavaScript
@@ -83,8 +89,7 @@ gulp.task("images", function () {
 gulp.task("copy", function () {
   var app = gulp.src([
     "app/*",
-    "!app/test",
-    "!app/precache.json"
+    "!app/test"
   ], {
     dot: true
   }).pipe(gulp.dest("dist"));
@@ -96,17 +101,11 @@ gulp.task("copy", function () {
   var elements = gulp.src(["app/elements/**/*.{html,js}"])
     .pipe(gulp.dest("dist/elements"));
 
-  var swBootstrap = gulp.src(["bower_components/platinum-sw/bootstrap/*.js"])
-    .pipe(gulp.dest("dist/elements/bootstrap"));
-
-  var swToolbox = gulp.src(["bower_components/sw-toolbox/*.js"])
-    .pipe(gulp.dest("dist/sw-toolbox"));
-
   var vulcanized = gulp.src(["app/elements/elements.html"])
     .pipe($.rename("elements.vulcanized.html"))
     .pipe(gulp.dest("dist/elements"));
 
-  return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
+  return merge(app, bower, elements, vulcanized)
     .pipe($.size({title: "copy"}));
 });
 
@@ -156,22 +155,6 @@ gulp.task("vulcanize", function () {
     }))
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: "vulcanize"}));
-});
-
-// Generate a list of files that should be precached when serving from "dist".
-// The list will be consumed by the <platinum-sw-cache> element.
-gulp.task("precache", function (callback) {
-  var dir = "dist";
-
-  glob("{elements,scripts,styles}/**/*.*", {cwd: dir}, function(error, files) {
-    if (error) {
-      callback(error);
-    } else {
-      files.push("index.html", "./", "bower_components/webcomponentsjs/webcomponents-lite.min.js");
-      var filePath = path.join(dir, "precache.json");
-      fs.writeFile(filePath, JSON.stringify(files), callback);
-    }
-  });
 });
 
 // Clean Output Directory
@@ -234,7 +217,7 @@ gulp.task("default", ["clean"], function (cb) {
     ["copy", "styles"],
     "elements",
     ["jshint", "images", "fonts", "html"],
-    "vulcanize", "precache",
+    "vulcanize",
     cb);
 });
 
