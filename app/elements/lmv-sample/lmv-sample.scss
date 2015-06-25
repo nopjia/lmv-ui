@@ -1,5 +1,8 @@
+@import "../elements";
+
 :host {
-  display: block;
+  padding: 15px;
+  border: gray 1px solid;
 }
 
 span {

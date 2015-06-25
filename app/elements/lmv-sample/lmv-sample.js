@@ -5,8 +5,7 @@
     properties: {
       hello: {
         type: String,
-        value: "LMV Rocks",
-        notify: true
+        value: "LMV Rocks"
       }
     }
   });
