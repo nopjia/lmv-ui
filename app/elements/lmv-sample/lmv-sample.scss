@@ -2,7 +2,7 @@
 
 :host {
   display: inline-block;
-  padding: 15px;
+  padding: 2rem;
   border: $color-2 1px solid;
   color: $color-1;
   background: $color-bg;
@@ -10,4 +10,8 @@
 
 span {
   color: $color-2;
+}
+
+.content {
+  margin-top: 2rem;
 }

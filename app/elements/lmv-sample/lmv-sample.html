@@ -7,8 +7,15 @@
 
   <!-- Local DOM -->
   <template>
-    <div>Hello <span>{{hello}}</span>!</div>
-    <div><input is="iron-input" bind-value="{{hello}}" on-input="onInput"></div>
+    <div>
+      <span>[[greeting]]</span>
+      <span>[[fullname]]</span>!
+    </div>
+    <div>
+      <input is="iron-input" bind-value="{{first}}" on-input="onInput">
+      <input value="{{last::value}}" on-input="onInput">
+    </div>
+    <div class="content"><content></content></div>
   </template>
 
 </dom-module>
