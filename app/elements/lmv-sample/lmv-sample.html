@@ -3,11 +3,12 @@
 <dom-module id="lmv-sample">
 
   <!-- CSS Rules -->
-  <link rel="stylesheet" type="text/css" href="lmv-sample.css">
+  <link rel="import" type="css" href="lmv-sample.css">
 
   <!-- Local DOM -->
   <template>
     <div>Hello <span>{{hello}}</span>!</div>
+    <div><input is="iron-input" bind-value="{{hello}}" on-input="onInput"></div>
   </template>
 
 </dom-module>

@@ -1,10 +1,13 @@
 @import "../elements";
 
 :host {
+  display: inline-block;
   padding: 15px;
-  border: gray 1px solid;
+  border: $color-2 1px solid;
+  color: $color-1;
+  background: $color-bg;
 }
 
 span {
-  color: red;
+  color: $color-2;
 }

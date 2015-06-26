@@ -1,3 +1,12 @@
+// variables
+
+$color-1: #fff;
+$color-2: #0ff;
+$color-bg: rgba(0, 0, 0, 0.5);
+
+// style
+
 :host {
   display: block;
+  position: relative;
 }

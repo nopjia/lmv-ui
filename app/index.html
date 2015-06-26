@@ -22,25 +22,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <!-- build:js scripts/vendor.js -->
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
-  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <!-- replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
 </head>
 
-<body unresolved class="fullbleed layout vertical">
+<body unresolved class="fullbleed">
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
     <lmv-sample></lmv-sample>
 
+    <iron-a11y-keys keys="up down left right e" on-keys-pressed="keyPressed"></iron-a11y-keys>
+
   </template>
 
-  <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
   <!-- endbuild-->
 </body>
 
