@@ -2,7 +2,8 @@
   "name": "lmv-ui",
   "private": true,
   "dependencies": {
-    "iron-elements": "PolymerElements/iron-elements#1.0.0"
+    "iron-elements": "PolymerElements/iron-elements#1.0.0",
+    "lmv-viewer": "~0.1.0"
   },
   "devDependencies": {}
 }

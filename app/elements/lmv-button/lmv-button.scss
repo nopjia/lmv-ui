@@ -1,0 +1,15 @@
+@import "../elements";
+
+:host {
+  display: inline-block;
+  padding: 1rem;
+  color: $color-1;
+  background-color: $color-bg;
+  cursor: pointer;
+
+  transition: background-color $color-bg-anim-duration;
+}
+
+:host(:hover), :host([active]) {
+  background-color: $color-bg-hover;
+}

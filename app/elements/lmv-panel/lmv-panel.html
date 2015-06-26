@@ -1,0 +1,46 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-panel">
+
+  <!-- CSS Rules -->
+  <link rel="import" type="css" href="lmv-panel.css">
+
+  <!-- Local DOM -->
+  <template>
+    <div id="header" on-tap="toggleCollapse">
+      <span>{{header}}</span>
+      <iron-icon class="collapse-icon" icon="expand-more"></iron-icon>
+    </div>
+    <div id="content" collapse="{{collapse}}">
+      <content></content>
+    </div>
+  </template>
+
+</dom-module>
+
+<!-- Polymer Script -->
+<script>
+(function() {
+  Polymer({
+    is: "lmv-panel",
+
+    properties: {
+      header: {
+        type: String,
+        value: "Header",
+        reflectToAttribute: true,
+      },
+      collapse: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+      }
+    },
+
+    toggleCollapse: function() {
+      this.collapse = !this.collapse;
+    }
+
+  });
+})();
+</script>

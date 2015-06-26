@@ -1,0 +1,41 @@
+@import "../elements";
+
+:host {
+  display: block;
+  color: $color-1;
+  background-color: $color-bg;
+}
+
+#header, #content {
+  padding: 0.75rem;
+}
+
+#header {
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  background-color: $color-bg;
+  transition: background-color $color-bg-anim-duration;
+  &:hover {
+    background-color: $color-bg-hover;
+  }
+}
+
+#header .collapse-icon {
+  float:right;
+  transition: transform $color-bg-anim-duration;
+}
+
+:host([collapse]) > {
+  #content {
+    display: none;
+  }
+
+  #header .collapse-icon {
+    transform: rotate(180deg);
+  }
+}
+
+::content p {
+  margin-top: 0;
+}

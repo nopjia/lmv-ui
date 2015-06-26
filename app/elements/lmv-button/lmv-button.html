@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-button">
+
+  <!-- CSS Rules -->
+  <link rel="import" type="css" href="lmv-button.css">
+
+  <!-- Local DOM -->
+  <template>
+    <content></content>
+  </template>
+
+</dom-module>
+
+<!-- Polymer Script -->
+<script>
+(function() {
+  Polymer({
+    is: "lmv-button",
+
+    properties: {
+      active: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+        observer: "_activeChanged",
+      },
+      toggle: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+      }
+    },
+
+    listeners: {
+      tap: "_handleTap"
+    },
+
+
+    // observers
+
+    _activeChanged: function(active) {
+      this.fire("active-change", { active: active });
+    },
+
+
+    // event listeners
+
+    _handleTap: function() {
+      if (this.toggle)
+        this.active = !this.active;
+    }
+
+  });
+})();
+</script>
