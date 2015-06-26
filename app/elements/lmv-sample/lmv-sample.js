@@ -15,7 +15,7 @@
       },
       last: {
         type: String,
-        value: "Lee"
+        value: "Jeng"
       },
       fullname: {
         type: String,

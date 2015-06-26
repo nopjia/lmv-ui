@@ -5,11 +5,12 @@
   padding: 2rem;
   border: $color-2 1px solid;
   color: $color-1;
-  background: $color-bg;
+  background-color: $color-bg;
 }
 
-span {
+.title {
   color: $color-2;
+  font-size: 2rem;
 }
 
 .content {
