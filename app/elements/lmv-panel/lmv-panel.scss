@@ -12,18 +12,21 @@
 
 #header {
   font-size: 1.4rem;
-  cursor: pointer;
 
   background-color: $color-bg;
   transition: background-color $color-bg-anim-duration;
-  &:hover {
-    background-color: $color-bg-hover;
-  }
-}
 
-#header .collapse-icon {
-  float:right;
-  transition: transform $color-bg-anim-duration;
+  display: flex;
+
+  .title {
+    flex-grow: 1;
+  }
+
+  .icon {
+    cursor: pointer;
+
+    transition: transform $color-bg-anim-duration;
+  }
 }
 
 :host([collapse]) > {
@@ -31,7 +34,7 @@
     display: none;
   }
 
-  #header .collapse-icon {
+  #header .icon {
     transform: rotate(180deg);
   }
 }

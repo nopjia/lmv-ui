@@ -7,9 +7,10 @@
 
   <!-- Local DOM -->
   <template>
-    <div id="header" on-tap="toggleCollapse">
-      <span>{{title}}</span>
-      <iron-icon class="collapse-icon" icon="expand-more"></iron-icon>
+    <div id="header">
+      <span class="title">{{title}}</span>
+      <iron-icon class="icon" icon="expand-more" on-tap="toggleCollapse"></iron-icon>
+      <iron-icon class="icon" icon="close" on-tap="close"></iron-icon>
     </div>
     <div id="content" collapse="{{collapse}}">
       <content></content>
@@ -39,7 +40,11 @@
 
     toggleCollapse: function() {
       this.collapse = !this.collapse;
-    }
+    },
+
+    close: function() {
+      Polymer.dom(this.parentNode).removeChild(this);
+    },
 
   });
 })();
