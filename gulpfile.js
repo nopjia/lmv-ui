@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 "use strict";
 
 // Include Gulp & Tools We"ll Use
-var gulp = require("gulp");
+var gulp = require('gulp-param')(require('gulp'), process.argv);
 var $ = require("gulp-load-plugins")();
 var del = require("del");
 var runSequence = require("run-sequence");
@@ -227,3 +227,20 @@ try { require("web-component-tester").gulp.init(gulp); } catch (err) {}
 
 // Load custom tasks from the `tasks` directory
 try { require("require-dir")("tasks"); } catch (err) {}
+
+gulp.task("el", function(name) {
+  if (!name)
+    return;
+
+  name = "lmv-" + name;
+
+  var TEMPLATE_NAME = "lmv-template";
+
+  return gulp.src(["app/elements/"+TEMPLATE_NAME+"/*.*"])
+    .pipe($.rename({
+      basename: name
+    }))
+    .pipe($.replace(TEMPLATE_NAME, name))
+    .pipe(gulp.dest("app/elements/"+name))
+    .pipe($.size({title: "created " + name}));
+});
