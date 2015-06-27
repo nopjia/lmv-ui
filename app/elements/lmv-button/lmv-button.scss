@@ -1,10 +1,13 @@
 @import "../elements";
 
 :host {
-  display: inline-block;
-  padding: 1rem;
+  display: inline-flex;
   color: $color-1;
   background-color: $color-bg;
+
+  padding: .4em;
+  line-height: 1;
+
   cursor: pointer;
 
   transition: background-color $color-bg-anim-duration;

@@ -1,3 +1,10 @@
+// for debug
+function stringToDOM(str) {
+  var d = document.createElement("div");
+  d.innerHTML = str;
+  return d.firstChild;
+}
+
 (function(document) {
   "use strict";
 
