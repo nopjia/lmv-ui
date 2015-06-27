@@ -57,10 +57,18 @@
       });
     },
 
-    openPanel: function(elem) {
+    openPanel: function(title, elem) {
       var panel = document.createElement("lmv-panel");
+      panel.title = title;
       Polymer.dom(panel).appendChild(elem);
       Polymer.dom(this.root).appendChild(panel);
+    },
+
+    openRenderStats: function() {
+      var elem = document.createElement("lmv-table");
+      elem.right = true;
+      elem.table = this.renderStats;
+      this.openPanel("Render Stats", elem);
     }
 
   });

@@ -8,7 +8,7 @@
   <!-- Local DOM -->
   <template>
     <div id="header" on-tap="toggleCollapse">
-      <span>{{header}}</span>
+      <span>{{title}}</span>
       <iron-icon class="collapse-icon" icon="expand-more"></iron-icon>
     </div>
     <div id="content" collapse="{{collapse}}">
@@ -25,9 +25,9 @@
     is: "lmv-panel",
 
     properties: {
-      header: {
+      title: {
         type: String,
-        value: "Header",
+        value: "Title",
         reflectToAttribute: true,
       },
       collapse: {

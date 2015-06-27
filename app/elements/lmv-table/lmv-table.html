@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-table">
+
+  <!-- CSS Rules -->
+  <link rel="import" type="css" href="lmv-table.css">
+
+  <!-- Local DOM -->
+  <template>
+    <table>
+      <template is="dom-repeat" items="{{table}}" as="row">
+        <tr>
+          <template is="dom-repeat" items="{{row}}" as="cell">
+            <td class="cell">{{cell}}</td>
+          </template>
+        </tr>
+      </template>
+    </table>
+  </template>
+
+</dom-module>
+
+<!-- Polymer Script -->
+<script>
+(function() {
+  Polymer({
+    is: "lmv-table",
+
+    properties: {
+      table: Object,
+      right: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      }
+    },
+
+  });
+})();
+</script>
