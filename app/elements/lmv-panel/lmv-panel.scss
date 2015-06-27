@@ -12,6 +12,7 @@
 
 #header {
   font-size: 1.4rem;
+  cursor: move;
 
   background-color: $color-bg;
   transition: background-color $color-bg-anim-duration;
@@ -41,4 +42,8 @@
 
 ::content p {
   margin-top: 0;
+}
+
+:host([_dragged]) {
+  position: absolute;
 }
