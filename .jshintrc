@@ -20,6 +20,7 @@
     "page": true,
     "app": true,
     "Autodesk": true,
-    "THREE": true
+    "THREE": true,
+    "LMVUI": true
   }
 }

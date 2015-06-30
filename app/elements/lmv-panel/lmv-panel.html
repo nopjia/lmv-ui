@@ -53,24 +53,19 @@
 
     _handleDrag: function(e) {
       switch(e.detail.state) {
-        case "start": this._handleDragStart(e); break;
-        case "track": this._handleDragMove(e); break;
-        case "end":   this._handleDragEnd(e); break;
+        case "start":
+          var rect = this.getBoundingClientRect();
+          this._dragged = true;
+          this._top = rect.top;
+          this._left = rect.left;
+          break;
+        case "track":
+          this._top += e.detail.ddy;
+          this._left += e.detail.ddx;
+          this.style.top = this._top + "px";
+          this.style.left = this._left + "px";
+          break;
       }
-    },
-    _handleDragStart: function(e) {
-      var rect = this.getBoundingClientRect();
-      this._dragged = true;
-      this._top = rect.top;
-      this._left = rect.left;
-    },
-    _handleDragMove: function(e) {
-      this._top += e.detail.ddy;
-      this._left += e.detail.ddx;
-      this.style.top = this._top + "px";
-      this.style.left = this._left + "px";
-    },
-    _handleDragEnd: function(e) {
     },
 
   });

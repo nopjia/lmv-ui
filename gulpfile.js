@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 "use strict";
 
 // Include Gulp & Tools We"ll Use
-var gulp = require('gulp-param')(require('gulp'), process.argv);
+var gulp = require("gulp");
 var $ = require("gulp-load-plugins")();
 var del = require("del");
 var runSequence = require("run-sequence");
@@ -18,8 +18,6 @@ var browserSync = require("browser-sync");
 var reload = browserSync.reload;
 var merge = require("merge-stream");
 var path = require("path");
-var fs = require("fs");
-var glob = require("glob");
 
 var AUTOPREFIXER_BROWSERS = [
   "ie >= 10",
@@ -228,7 +226,8 @@ try { require("web-component-tester").gulp.init(gulp); } catch (err) {}
 // Load custom tasks from the `tasks` directory
 try { require("require-dir")("tasks"); } catch (err) {}
 
-gulp.task("el", function(name) {
+var gulpParam = require("gulp-param")(require("gulp"), process.argv);
+gulpParam.task("el", function(name) {
   if (!name)
     return;
 

@@ -32,9 +32,7 @@ $indent-size: 15px;
   .expand-icon {
     margin-right: 0.2em;
 
-    // pointer-events: none;
     cursor: auto;
-
     visibility: hidden;
 
     &[has-children] {

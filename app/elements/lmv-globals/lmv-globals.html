@@ -1,0 +1,25 @@
+<style type="text/css">
+
+/* iron-icon size fix */
+body /deep/ iron-icon {
+  width: 1em;
+  height: 1em;
+}
+
+</style>
+
+
+
+<script>
+
+if (!window.LMVUI)
+  LMVUI = {};
+
+// for debug
+LMVUI.stringToDOM = function stringToDOM(str) {
+  var d = document.createElement("div");
+  d.innerHTML = str;
+  return d.firstChild;
+};
+
+</script>

@@ -22,7 +22,7 @@
 
 <script>
 (function() {
-  Polymer({
+  LMVUI.TreeNodeElement = Polymer({
     is: "lmv-tree-node",
 
     properties: {
@@ -36,17 +36,28 @@
         value: false,
         reflectToAttribute: true
       },
+      dataNode: Object,
     },
 
-    attached: function() {
-      // NOTE_NOP: ugly, have children notify its parent to show expand arrow
-      var pthis = Polymer.dom(this);
-      if (pthis.parentNode.tagName === "LMV-TREE-NODE")
-        pthis.parentNode._hasChildren = true;
+    /**
+     * @param label    {String}
+     * @param dataNode {Object} with "children" Array
+     */
+    factoryImpl: function(label, dataNode) {
+      this.label = label;
+      this.dataNode = dataNode;
+      this._hasChildren = this.dataNode.children && this.dataNode.children.length > 0;
     },
 
     toggleExpand: function() {
       this.expanded = !this.expanded;
+
+      if (this.expanded && this._hasChildren && this.children.length===0) {
+        for (var i=0; i<this.dataNode.children.length; i++) {
+          var childNode = this.dataNode.children[i];
+          Polymer.dom(this).appendChild(new LMVUI.TreeNodeElement(childNode.name, childNode));
+        }
+      }
     },
 
     _onNodeClick: function() {
@@ -88,21 +99,8 @@
       var pthis = Polymer.dom(this);
       pthis.innerHTML = ""; // clear any existing children
       for (var i=0; i<root.children.length; i++) {
-        this.buildTree(root.children[i], this);
-      }
-    },
-
-    buildTree: function(node, parentElem) {
-      // create node
-      var newElem = document.createElement("lmv-tree-node");
-      newElem.label = node.name;
-      Polymer.dom(parentElem).appendChild(newElem);
-
-      // recursive
-      if (node.children) {
-        for (var i=0; i<node.children.length; i++) {
-          this.buildTree(node.children[i], newElem);
-        }
+        var childNode = root.children[i];
+        pthis.appendChild(new LMVUI.TreeNodeElement(childNode.name, childNode));
       }
     }
   });

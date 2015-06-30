@@ -3,11 +3,11 @@
     is: "lmv-template",
 
     properties: {
-      greeting: {
+      hello: {
         type: String,
         value: "Hello",
         reflectToAttribute: true,
-        observer: "greetingChanged",
+        observer: "_helloChanged",
       }
     },
 
@@ -15,8 +15,8 @@
       console.log("lmv-template ready");
     },
 
-    greetingChanged: function(newVal, oldVal) {
-      console.log("greeting changed '" + oldVal + "' to '" + newVal + "'");
+    _helloChanged: function(newVal, oldVal) {
+      console.log("hello changed '" + oldVal + "' to '" + newVal + "'");
     },
   });
 })();
