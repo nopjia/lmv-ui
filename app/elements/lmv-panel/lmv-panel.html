@@ -7,10 +7,10 @@
 
   <!-- Local DOM -->
   <template>
-    <div id="header" on-track="_handleDrag">
-      <span class="title">{{title}}</span>
-      <iron-icon class="icon" icon="expand-more" on-tap="toggleCollapse"></iron-icon>
-      <iron-icon class="icon" icon="close" on-tap="close"></iron-icon>
+    <div id="header" on-track="_onDrag">
+      <span class="header">{{header}}</span>
+      <iron-icon class="icon" icon="expand-more" on-click="toggleCollapse"></iron-icon>
+      <iron-icon class="icon" icon="close" on-click="close"></iron-icon>
     </div>
     <div id="content">
       <content></content>
@@ -22,13 +22,13 @@
 <!-- Polymer Script -->
 <script>
 (function() {
-  Polymer({
+  LMVUI.Panel = Polymer({
     is: "lmv-panel",
 
     properties: {
-      title: {
+      header: {
         type: String,
-        value: "Title",
+        value: "Header",
         reflectToAttribute: true,
       },
       collapse: {
@@ -43,6 +43,10 @@
       },
     },
 
+    factoryImpl: function(header) {
+      this.header = header || this.header;
+    },
+
     toggleCollapse: function() {
       this.collapse = !this.collapse;
     },
@@ -51,7 +55,7 @@
       Polymer.dom(this.parentNode).removeChild(this);
     },
 
-    _handleDrag: function(e) {
+    _onDrag: function(e) {
       switch(e.detail.state) {
         case "start":
           var rect = this.getBoundingClientRect();

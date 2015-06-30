@@ -1,9 +1,11 @@
 @import "../elements";
 
 :host {
-  display: block;
   color: $color-1;
   background-color: $color-bg;
+
+  display: flex;
+  flex-direction: column;
 }
 
 #header, #content {
@@ -17,9 +19,10 @@
   background-color: $color-bg;
   transition: background-color $color-bg-anim-duration;
 
+  flex-shrink: 0;
   display: flex;
 
-  .title {
+  .header {
     flex-grow: 1;
   }
 
@@ -28,6 +31,11 @@
 
     transition: transform $color-bg-anim-duration;
   }
+}
+
+#content {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 :host([collapse]) > {

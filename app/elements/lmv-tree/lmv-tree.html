@@ -22,7 +22,7 @@
 
 <script>
 (function() {
-  LMVUI.TreeNodeElement = Polymer({
+  LMVUI.TreeNode = Polymer({
     is: "lmv-tree-node",
 
     properties: {
@@ -52,10 +52,10 @@
     toggleExpand: function() {
       this.expanded = !this.expanded;
 
-      if (this.expanded && this._hasChildren && this.children.length===0) {
+      if (this.expanded && this._hasChildren && Polymer.dom(this).children.length===0) {
         for (var i=0; i<this.dataNode.children.length; i++) {
           var childNode = this.dataNode.children[i];
-          Polymer.dom(this).appendChild(new LMVUI.TreeNodeElement(childNode.name, childNode));
+          Polymer.dom(this).appendChild(new LMVUI.TreeNode(childNode.name, childNode));
         }
       }
     },
@@ -72,7 +72,7 @@
 
 
 
-<dom-module id="lmv-tree-view">
+<dom-module id="lmv-tree">
   <style type="text/css">
   :host {
     display: block;
@@ -87,11 +87,15 @@
 
 <script>
 (function() {
-  Polymer({
-    is: "lmv-tree-view",
+  LMVUI.Tree = Polymer({
+    is: "lmv-tree",
 
     properties: {
       root: Object
+    },
+
+    factoryImpl: function(root) {
+      if (root) this.setTree(root);
     },
 
     setTree: function(root) {
@@ -100,7 +104,7 @@
       pthis.innerHTML = ""; // clear any existing children
       for (var i=0; i<root.children.length; i++) {
         var childNode = root.children[i];
-        pthis.appendChild(new LMVUI.TreeNodeElement(childNode.name, childNode));
+        pthis.appendChild(new LMVUI.TreeNode(childNode.name, childNode));
       }
     }
   });

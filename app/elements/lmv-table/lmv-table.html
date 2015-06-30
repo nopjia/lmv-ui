@@ -23,7 +23,7 @@
 <!-- Polymer Script -->
 <script>
 (function() {
-  Polymer({
+  LMVUI.Table = Polymer({
     is: "lmv-table",
 
     properties: {
@@ -33,6 +33,10 @@
         value: false,
         reflectToAttribute: true
       }
+    },
+
+    factoryImpl: function(table) {
+      this.table = table;
     },
 
   });

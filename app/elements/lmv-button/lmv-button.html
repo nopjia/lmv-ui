@@ -15,7 +15,7 @@
 <!-- Polymer Script -->
 <script>
 (function() {
-  Polymer({
+  LMVUI.Button = Polymer({
     is: "lmv-button",
 
     properties: {
@@ -33,7 +33,7 @@
     },
 
     listeners: {
-      tap: "_handleTap"
+      click: "_onClick"
     },
 
 
@@ -46,7 +46,7 @@
 
     // event listeners
 
-    _handleTap: function() {
+    _onClick: function() {
       if (this.toggle)
         this.active = !this.active;
     }
