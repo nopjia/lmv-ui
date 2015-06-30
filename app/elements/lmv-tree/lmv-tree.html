@@ -1,0 +1,110 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-tree-node">
+  <link rel="import" type="css" href="lmv-tree-node.css">
+
+  <template>
+    <div id="line">
+      <iron-icon class="expand-icon"
+        icon="chevron-right"
+        expanded$="{{expanded}}"
+        has-children$="{{_hasChildren}}"
+        on-click="toggleExpand">
+      </iron-icon><span id="label"
+        on-click="_onNodeClick"
+        on-dblclick="_onNodeDoubleClick">{{label}}</span>
+    </div>
+    <div id="content" expanded$="{{expanded}}">
+      <content></content>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  Polymer({
+    is: "lmv-tree-node",
+
+    properties: {
+      label: {
+        type: String,
+        value: "Node",
+        reflectToAttribute: true,
+      },
+      expanded: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+    },
+
+    attached: function() {
+      // NOTE_NOP: ugly, have children notify its parent to show expand arrow
+      var pthis = Polymer.dom(this);
+      if (pthis.parentNode.tagName === "LMV-TREE-NODE")
+        pthis.parentNode._hasChildren = true;
+    },
+
+    toggleExpand: function() {
+      this.expanded = !this.expanded;
+    },
+
+    _onNodeClick: function() {
+      this.fire("node-click");
+    },
+    _onNodeDoubleClick: function() {
+      this.fire("node-dblclick");
+    }
+  });
+})();
+</script>
+
+
+
+<dom-module id="lmv-tree-view">
+  <style type="text/css">
+  :host {
+    display: block;
+    position: relative;
+    line-height: 1;
+  }
+  </style>
+  <template>
+    <content></content>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  Polymer({
+    is: "lmv-tree-view",
+
+    properties: {
+      root: Object
+    },
+
+    setTree: function(root) {
+      this.root = root;
+      var pthis = Polymer.dom(this);
+      pthis.innerHTML = ""; // clear any existing children
+      for (var i=0; i<root.children.length; i++) {
+        this.buildTree(root.children[i], this);
+      }
+    },
+
+    buildTree: function(node, parentElem) {
+      // create node
+      var newElem = document.createElement("lmv-tree-node");
+      newElem.label = node.name;
+      Polymer.dom(parentElem).appendChild(newElem);
+
+      // recursive
+      if (node.children) {
+        for (var i=0; i<node.children.length; i++) {
+          this.buildTree(node.children[i], newElem);
+        }
+      }
+    }
+  });
+})();
+</script>

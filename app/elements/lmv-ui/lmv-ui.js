@@ -41,6 +41,14 @@
       // property db loaded
       this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.docName = self.viewerElem.doc ? self.viewerElem.doc.getRootItem().children[0].name : undefined;
+
+        var root = self.viewer.model.getRoot();
+        // go down to deepest single child
+        // to get rid of single roots in model tree
+        while (root.children.length === 1) {
+          root = root.children[0];
+        }
+        self.$.modeltree.setTree(root);
       });
 
       // geometry complete

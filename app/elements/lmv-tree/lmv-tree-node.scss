@@ -1,0 +1,50 @@
+@import "../elements";
+
+$indent-size: 15px;
+
+:host {
+  // background-color: black;
+  // border: 1px solid white;
+  user-select: none;
+
+  & > #content {
+    display: none;
+    padding-left: $indent-size;
+
+    &[expanded] {
+      display: block;
+    }
+  }
+
+  & > #line {
+    margin-top: .4em;
+  }
+
+  & > #line > #label {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: $color-2;
+    }
+  }
+
+  .expand-icon {
+    margin-right: 0.2em;
+
+    // pointer-events: none;
+    cursor: auto;
+
+    visibility: hidden;
+
+    &[has-children] {
+      visibility: visible;
+      cursor: pointer;
+      transition: transform $color-bg-anim-duration;
+    }
+    &[expanded] {
+      transform: rotate(90deg);
+    }
+  }
+
+}
