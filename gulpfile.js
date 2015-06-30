@@ -231,15 +231,24 @@ gulpParam.task("el", function(name) {
   if (!name)
     return;
 
-  name = "lmv-" + name;
+  function toClassName(s) {
+      return s.replace(/\w[^-]*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }).replace("-", "");
+  }
+
+  var elemName = "lmv-" + name;
+  var className = toClassName(name);
 
   var TEMPLATE_NAME = "lmv-template";
+  var TEMPLATE_CLASS_NAME = "TemplateElement";
 
   return gulp.src(["app/elements/"+TEMPLATE_NAME+"/*.*"])
     .pipe($.rename({
-      basename: name
+      basename: elemName
     }))
-    .pipe($.replace(TEMPLATE_NAME, name))
-    .pipe(gulp.dest("app/elements/"+name))
-    .pipe($.size({title: "created " + name}));
+    .pipe($.replace(TEMPLATE_NAME, elemName))
+    .pipe($.if("*.js", $.replace(TEMPLATE_CLASS_NAME, className)))
+    .pipe(gulp.dest("app/elements/"+elemName))
+    .pipe($.size({title: "created " + elemName + " " + className}));
 });

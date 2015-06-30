@@ -1,5 +1,5 @@
 (function() {
-  LMVUI.Template = Polymer({
+  LMVUI.TemplateElement = Polymer({
     is: "lmv-template",
 
     properties: {
