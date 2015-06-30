@@ -27,11 +27,8 @@
     is: "lmv-property-view",
 
     attached: function() {
-      // TODO_NOP: decide on data flow design...
-      // grab viewer reference
-      var viewerDom = document.querySelector("lmv-viewer");
-      if (viewerDom) this.viewer = viewerDom.viewer;
-      if (!this.viewer) return;
+      if (!LMVUI._getViewerReference(this))
+        return;
 
       if (this.viewer.model)
         this.setModelProperties();

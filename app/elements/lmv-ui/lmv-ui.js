@@ -5,23 +5,11 @@
 
     // ready
 
-    ready: function() {
-
+    attached: function() {
       var self = this;
 
-      // grab viewer reference
-
-      this.viewerElem = this.querySelector("lmv-viewer");
-      if (!this.viewerElem) {
-        console.log("ERROR: Cannot find lmv-viewer element");
+      if (!LMVUI._getViewerReference(this))
         return;
-      }
-      this.viewer = this.viewerElem.viewer;
-      if (!this.viewer) {
-        console.log("ERROR: Cannot find viewer from lmv-viewer element");
-        return;
-      }
-
 
       // hook up to viewer events
 
@@ -40,7 +28,7 @@
 
       // property db loaded
       this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
-        self.docName = self.viewerElem.doc ? self.viewerElem.doc.getRootItem().children[0].name : undefined;
+        //self.docName = self.viewerElem.doc ? self.viewerElem.doc.getRootItem().children[0].name : undefined;
 
         self.modelTree = self.viewer.model.getRoot();
         // go down to deepest single child
@@ -81,7 +69,9 @@
     },
 
     openModelProperty: function() {
-      this.createPanel("Model Property", new LMVUI.PropertyView());
+      var elem = new LMVUI.PropertyView();
+      elem.viewer = this.viewer;  // specify viewer, so no automatic finding
+      this.createPanel("Model Property", elem);
     },
 
   });

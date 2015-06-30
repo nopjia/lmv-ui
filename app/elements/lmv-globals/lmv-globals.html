@@ -11,15 +11,49 @@ body /deep/ iron-icon {
 
 
 <script>
+(function() {
 
 if (!window.LMVUI)
-  LMVUI = {};
+  window.LMVUI = {};
 
 // for debug
-LMVUI.stringToDOM = function stringToDOM(str) {
+LMVUI.stringToDOM = function(str) {
   var d = document.createElement("div");
   d.innerHTML = str;
   return d.firstChild;
 };
 
+// lazily get and cache viewer
+var viewerElem, viewer;
+LMVUI.getViewer = function() {
+  if (viewer)
+    return viewer;
+
+  viewerElem = document.querySelector("lmv-viewer");
+  if (!viewerElem) {
+    console.log("ERROR: Cannot find lmv-viewer element");
+    return;
+  }
+  viewer = viewerElem.viewer;
+  if (!viewer) {
+    console.log("ERROR: Cannot find viewer from lmv-viewer element");
+    return;
+  }
+
+  return viewer;
+};
+
+// utility function for LMV elements to find viewer, if not specified
+LMVUI._getViewerReference = function(elem) {
+  if (!elem.viewer) {
+    console.log(elem.tagName+": No viewer specified, automatically grabbing viewer");
+    elem.viewer = LMVUI.getViewer();
+  }
+  if (!elem.viewer) {
+    console.log(elem.tagName+": ERROR: Cannot find viewer");
+  }
+  return elem.viewer;
+};
+
+})(); // closure
 </script>
