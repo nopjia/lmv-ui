@@ -1,0 +1,95 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-property-view">
+  <link rel="import" type="css" href="lmv-property-view.css">
+
+  <template>
+
+    <template is="dom-repeat" items="{{categoryKeys}}" as="cat">
+      <div class="category">{{cat}}</div>
+      <table>
+        <template is="dom-repeat" items="{{_getPropForCat(cat)}}" as="prop">
+          <tr>
+            <td class="prop">{{prop.displayName}}</td>
+            <td class="prop">{{prop.displayValue}}</td>
+          </tr>
+          </template>
+        </template>
+      </table>
+    </template>
+
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.PropertyView = Polymer({
+    is: "lmv-property-view",
+
+    attached: function() {
+      // TODO_NOP: decide on data flow design...
+      // grab viewer reference
+      var viewerDom = document.querySelector("lmv-viewer");
+      if (viewerDom) this.viewer = viewerDom.viewer;
+      if (!this.viewer) return;
+
+      if (this.viewer.model)
+        this.setModelProperties();
+
+      var self = this;
+      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+        self.setModelProperties();
+      });
+      this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
+        self.setModelProperties(event.dbIdArray[event.dbIdArray.length - 1]);
+      });
+    },
+
+    setModelProperties: function(nodeId) {
+      if (!nodeId) {
+        if (this.viewer.model.myData.instanceTree) {
+          nodeId = this.viewer.model.getRootId();
+        }
+        else {
+          console.log("ERROR: no model instanceTree");
+          this.setProperties();
+          return;
+        }
+      }
+      var self = this;
+      this.viewer.getProperties(nodeId, function(result) {
+        self.setProperties(result);
+      });
+    },
+
+    setProperties: function(result) {
+      // grab name of file
+      var name = result.name;
+      this.categories = {};
+
+      var props = result.properties;
+
+      for (var i=0; i<props.length; i++) {
+        // if no category, goes under generic "name" category
+        var cat = props[i].displayCategory || name;
+
+        if (props[i].hidden)
+          continue;
+
+        // create new category, if necessary
+        if (!this.categories[cat])
+          this.categories[cat] = [];
+
+        // add property under category
+        this.categories[cat].push(props[i]);
+      }
+
+      this.categoryKeys = Object.keys(this.categories);
+    },
+
+    _getPropForCat: function(cat) {
+      return this.categories[cat];
+    },
+  });
+})();
+</script>

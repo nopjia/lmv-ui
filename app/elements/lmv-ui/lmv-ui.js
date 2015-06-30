@@ -78,7 +78,11 @@
 
     openModelTree: function() {
       this.createPanel("Model Tree", new LMVUI.Tree(this.modelTree));
-    }
+    },
+
+    openModelProperty: function() {
+      this.createPanel("Model Property", new LMVUI.PropertyView());
+    },
 
   });
 })();
