@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-model-search">
+  <link rel="import" type="css" href="lmv-model-search.css">
+
+  <template>
+    <input id="search"
+      is="iron-input"
+      placeholder="Search"
+      bind-value="{{query}}"
+      on-change="_doSearch" />
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.ModelSearch = Polymer({
+    is: "lmv-model-search",
+
+    properties: {
+      query: {
+        type: String,
+        observer: "_queryChanged"
+      }
+    },
+
+    isSearching: false,
+    prevQuery: undefined,
+
+    TIMEOUT: 500,  // milliseconds
+    timeout: undefined,
+
+    created: function() {
+      this._doSearch = this._doSearch.bind(this);
+    },
+    attached: function() {
+      if (!LMVUI._getViewerReference(this))
+        return;
+    },
+    _queryChanged: function() {  // delayed search, as typing
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(this._doSearch, this.TIMEOUT);
+    },
+    _doSearch: function() {  // immediate search
+      clearTimeout(this.timeout);
+      this._search(this.query);
+    },
+    _search: function(str) {
+      if (!this.viewer.model)
+        return;
+      if (str === "") {
+        this.viewer.isolate();
+        this.prevQuery = str;
+        return;
+      }
+      if (!str || str === this.prevQuery || this.isSearching)
+        return;
+
+      // start search
+      this.isSearching = true;
+      var self = this;
+      this.viewer.search(str, function(resultIds) {
+        self.viewer.isolate(resultIds);
+        self.isSearching = false;
+        self.prevQuery = str;
+      });
+    }
+  });
+})();
+</script>

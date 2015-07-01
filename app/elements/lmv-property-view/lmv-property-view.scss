@@ -5,11 +5,7 @@
 }
 
 table {
-  width: 100%;
-
-  .prop {
-    padding: 3px 0;
-  }
+  @include table-format();
 }
 
 div.category {

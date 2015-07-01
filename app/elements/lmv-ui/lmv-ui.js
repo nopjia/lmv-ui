@@ -76,7 +76,7 @@
 
     openRenderSettings: function() {
       var elem = new LMVUI.RenderSettings();
-      elem.viewer = this.viewer;  // specify viewer, so no automatic finding
+      elem.viewer = this.viewer;
       this.createPanel("Render Settings", elem);
     }
 

@@ -1,17 +1,13 @@
 @import "../elements";
 
 :host {
-  display: inline-block;
-  vertical-align: middle;
+  @include input-format();
+
   width: 5em;
-  height: 1em;
 
   cursor: pointer;
 
-  border: 1px solid $color-1;
   transition: border-color $anim-duration;
-
-  padding: 2px;
 
   #fill {
     width: 0%;

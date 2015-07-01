@@ -1,29 +1,32 @@
 @import "../elements";
 
 :host {
-  display: inline-block;
-  vertical-align: middle;
-  min-width: 5em;
-  height: 1em;
+  @include input-format();
 
-  box-sizing: content-box;
+  min-width: 5em;
 
   cursor: pointer;
 
-  border: 1px solid $color-1;
   transition: border-color $anim-duration;
-
-  padding: 2px;
 }
 
 #display {
   height: 100%;
+
+  display: flex;
+
+  .label {
+    flex-grow: 1;
+  }
 }
 
 #options {
   position: fixed;
   background-color: $color-bg;
   z-index: 1;
+
+  max-height: 200px;
+  overflow-y: scroll;
 
   display: none;
 

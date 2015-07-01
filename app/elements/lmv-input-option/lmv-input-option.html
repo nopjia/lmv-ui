@@ -4,7 +4,12 @@
   <link rel="import" type="css" href="lmv-input-option.css">
 
   <template>
-    <div id="display">{{label}}</div>
+    <div id="display">
+      <div class="label">{{label}}</div>
+      <div class="arrow">
+        <iron-icon class="expand-icon" icon="expand-more"></iron-icon>
+      </div>
+    </div>
     <div id="options" expanded$="{{expanded}}">
       <content select="option"></content>
     </div>

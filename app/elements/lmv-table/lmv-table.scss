@@ -1,11 +1,7 @@
 @import "../elements";
 
 table {
-  width: 100%;
-
-  td.cell {
-    padding: .2em 0;
-  }
+  @include table-format();
 }
 
 :host([right]) {

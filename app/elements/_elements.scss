@@ -13,4 +13,38 @@ $anim-duration: 0.2s;
   position: relative;
   line-height: 1;
   box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+// mixins
+// use mixins to standardize, to minimize css bloat
+
+@mixin table-format() {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+
+  td {
+    padding: .2em 0;
+  }
+}
+
+@mixin input-format() {
+  background: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid $color-1;
+  color: $color-1;
+  padding: .2em;
+
+  height: 1em;
+  box-sizing: content-box;
 }
