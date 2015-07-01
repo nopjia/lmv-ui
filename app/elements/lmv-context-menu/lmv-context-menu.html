@@ -1,0 +1,149 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-context-menu">
+  <link rel="import" type="css" href="lmv-context-menu.css">
+
+  <template>
+    <span>Context Menu</span>
+    <content></content>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  var _lastX, _lastY;
+  var _DELTA_EPS = 10;
+  var _isTouch;
+  var _longpressTimer;
+  var _longpressDuration = 500;
+  var _longpressJustOpened = false;
+  var _currX, _currY;
+
+  function openContextMenu(x,y) {
+    if (Math.abs(_lastX-x) < _DELTA_EPS && Math.abs(_lastY-y) < _DELTA_EPS) {
+      this.show = true;
+      this.style.left = x + "px";
+      this.style.bottom = "calc( 100% - " + y + "px )";
+      this.fire("open");
+    }
+  }
+  function closeContextMenu() {
+    this.show = false;
+    this.fire("close");
+  }
+
+  function onMouseDown(e) {
+    if (e.button !== 2)
+      return;
+    _lastX = e.clientX;
+    _lastY = e.clientY;
+  }
+  function onMouseUp(e) {
+    if (e.button !== 2)
+      return;
+    openContextMenu.call(this, e.clientX, e.clientY);
+  }
+
+  function onTouchStart(e) {
+    _lastX = e.touches[0].clientX;
+    _lastY = e.touches[0].clientY;
+
+    var self = this;
+    _longpressTimer = window.setTimeout(function() {
+      openContextMenu.call(self, _currX, _currY);
+      _longpressJustOpened = true;
+    }, _longpressDuration);
+  }
+  function onTouchEnd() {
+    clearTimeout(_longpressTimer);
+  }
+  function onTouchMove(e) {
+    _currX = e.touches[0].clientX;
+    _currY = e.touches[0].clientY;
+  }
+
+  function onClickToCancel() {
+    if (_isTouch) {
+      if (_longpressJustOpened) {
+        _longpressJustOpened = false;
+        return;
+      }
+      // TODO_NOP: hack to delay menu closing after clicking on item
+      var self = this;
+      setTimeout(function() {
+        closeContextMenu.call(self);
+      }, 100);
+    }
+    else {
+      closeContextMenu.call(this);
+    }
+  }
+  function onContextMenu(e) {
+    e.preventDefault();
+  }
+
+  LMVUI.ContextMenu = Polymer({
+    is: "lmv-context-menu",
+
+    properties: {
+      show: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      }
+    },
+
+    attached: function() {
+      this._isTouch = "ontouchstart" in window;
+      if (!this.target)
+        this.target = this.parentNode;
+      this.listen(this.target);
+    },
+    detached: function() {
+      this.unlisten(this.target);
+    },
+
+    listen: function(node) {
+      if (node && node.addEventListener) {
+        this.onClickToCancel = onClickToCancel.bind(this);
+        this.onContextMenu = onContextMenu.bind(this);
+        node.addEventListener("contextmenu", this.onContextMenu, false);
+
+        this.onMouseDown = onMouseDown.bind(this);
+        this.onMouseUp = onMouseUp.bind(this);
+        node.addEventListener("mousedown", this.onMouseDown, true);
+        node.addEventListener("mouseup", this.onMouseUp, true);
+        window.addEventListener("mouseup", this.onClickToCancel, true);
+
+        if(_isTouch) {
+          this.onTouchStart = onTouchStart.bind(this);
+          this.onTouchEnd = onTouchEnd.bind(this);
+          this.onTouchMove = onTouchMove.bind(this);
+          node.addEventListener("touchstart", this.onTouchStart, true);
+          node.addEventListener("touchend", this.onTouchEnd, true);
+          node.addEventListener("touchmove", this.onTouchMove, true);
+          window.addEventListener("touchend", this.onClickToCancel, true);
+        }
+      }
+    },
+    unlisten: function(node) {
+      if (node && node.removeEventListener) {
+        node.removeEventListener("contextmenu", this.onContextMenu, false);
+
+        node.removeEventListener("mousedown", this.onMouseDown, true);
+        node.removeEventListener("mouseup", this.onMouseUp, true);
+        window.removeEventListener("mouseup", this.onClickToCancel, true);
+
+        if (_isTouch) {
+          node.removeEventListener("touchstart", this.onTouchStart, true);
+          node.removeEventListener("touchend", this.onTouchEnd, true);
+          node.removeEventListener("touchmove", this.onTouchMove, true);
+          window.removeEventListener("touchend", this.onClickToCancel, true);
+        }
+      }
+    }
+
+
+  });
+})();
+</script>
