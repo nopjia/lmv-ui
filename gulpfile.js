@@ -234,7 +234,7 @@ gulpParam.task("el", function(name) {
   function toClassName(s) {
       return s.replace(/\w[^-]*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }).replace("-", "");
+      }).replace(/-/g, "");
   }
 
   var elemName = "lmv-" + name;
