@@ -37,9 +37,14 @@
     },
 
     _valueChanged: function(value) {
-      this.value = Math.max(Math.min(this.value, this.max), this.min);
       this.$.fill.style.width = (this.value-this.min)/(this.max-this.min)*100 + "%";
       this.fire("value-change", { value: value });
+    },
+
+    _setValue: function(xpos) {
+      var rect = this.getBoundingClientRect();
+      this.value = ((xpos - rect.left) / rect.width) * (this.max - this.min) + this.min;
+      this.value = Math.max(Math.min(this.value, this.max), this.min);
     },
 
     _onClick: function(e) {
@@ -51,11 +56,6 @@
         this._setValue(e.detail.x);
       }
     },
-
-    _setValue: function(xpos) {
-      var rect = this.getBoundingClientRect();
-      this.value = ((xpos - rect.left) / rect.width) * (this.max - this.min) + this.min;
-    }
   });
 })();
 </script>
