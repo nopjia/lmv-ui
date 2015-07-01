@@ -20,6 +20,14 @@
         reflectToAttribute: true,
         notify: true,
         observer: "_valueChanged",
+      },
+      max: {
+        type: Number,
+        value: 1.0,
+      },
+      min: {
+        type: Number,
+        value: 0.0,
       }
     },
 
@@ -29,7 +37,8 @@
     },
 
     _valueChanged: function(value) {
-      this.$.fill.style.width = value*100 + "%";
+      this.value = Math.max(Math.min(this.value, this.max), this.min);
+      this.$.fill.style.width = (this.value-this.min)/(this.max-this.min)*100 + "%";
       this.fire("value-change", { value: value });
     },
 
@@ -45,8 +54,7 @@
 
     _setValue: function(xpos) {
       var rect = this.getBoundingClientRect();
-      this.value = (xpos - rect.left) / rect.width;
-      this.value = Math.max(Math.min(this.value, 1.0), 0.0);
+      this.value = ((xpos - rect.left) / rect.width) * (this.max - this.min) + this.min;
     }
   });
 })();

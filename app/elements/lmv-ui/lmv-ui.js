@@ -74,5 +74,11 @@
       this.createPanel("Model Property", elem);
     },
 
+    openRenderSettings: function() {
+      var elem = new LMVUI.RenderSettings();
+      elem.viewer = this.viewer;  // specify viewer, so no automatic finding
+      this.createPanel("Render Settings", elem);
+    }
+
   });
 })();

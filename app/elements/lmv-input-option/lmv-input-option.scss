@@ -3,8 +3,10 @@
 :host {
   display: inline-block;
   vertical-align: middle;
-  width: 5em;
+  min-width: 5em;
   height: 1em;
+
+  box-sizing: content-box;
 
   cursor: pointer;
 
@@ -21,6 +23,7 @@
 #options {
   position: fixed;
   background-color: $color-bg;
+  z-index: 1;
 
   display: none;
 

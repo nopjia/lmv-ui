@@ -1,0 +1,20 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-render-settings">
+  <link rel="import" type="css" href="lmv-render-settings.css">
+
+  <template>
+    <table>
+      <tr><td>Environment</td>      <td><lmv-input-option  value="{{env}}" id="env"></lmv-input-option></td></tr>
+      <tr><td>Explode</td>          <td><lmv-input-range   value="{{explode}}"></lmv-input-range></td></tr>
+      <tr><td>FOV</td>              <td><lmv-input-range   value="{{fov}}" max="120"></lmv-input-range></td></tr>
+      <tr><td>Ortho</td>            <td><lmv-input-boolean value="{{ortho}}"></lmv-input-boolean></td></tr>
+      <tr><td>Anti-Aliasing</td>    <td><lmv-input-boolean value="{{aa}}"></lmv-input-boolean></td></tr>
+      <tr><td>Ambient Occlusion</td><td><lmv-input-boolean value="{{ssao}}"></lmv-input-boolean></td></tr>
+      <tr><td>Shadows</td>          <td><lmv-input-boolean value="{{shadows}}"></lmv-input-boolean></td></tr>
+      <tr><td>Reflections</td>      <td><lmv-input-boolean value="{{reflections}}"></lmv-input-boolean></td></tr>
+    </table>
+  </template>
+</dom-module>
+
+<script src="lmv-render-settings.js"></script>

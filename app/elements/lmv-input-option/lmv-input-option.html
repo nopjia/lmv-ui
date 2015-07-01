@@ -22,6 +22,10 @@
         reflectToAttribute: true,
         notify: true,
         observer: "_valueChanged",
+      },
+      options: {
+        type: Array,
+        observer: "_optionsChanged"
       }
     },
 
@@ -33,11 +37,23 @@
       // sync label
       this.label = undefined;
       if (value) {
-        var option = Polymer.dom(this).querySelector("option[value="+value+"]");
+        var option = Polymer.dom(this).querySelector("option[value=\""+value+"\"]");
         if (option)
           this.label = option.innerHTML;
       }
       this.fire("value-change", { value: value });
+    },
+
+    _optionsChanged: function() {
+      var pdom = Polymer.dom(this);
+      for (var i=0; i<this.options.length; i++) {
+        var option = this.options[i];
+        console.log(option);
+        var optionElem = document.createElement("option");
+        optionElem.innerHTML = option.label;
+        optionElem.value = option.value;
+        pdom.appendChild(optionElem);
+      }
     },
 
     _onClick: function(e) {
