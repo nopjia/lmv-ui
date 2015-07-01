@@ -9,7 +9,7 @@
 
   cursor: pointer;
 
-  transition: background-color $color-bg-anim-duration;
+  transition: background-color $anim-duration;
 }
 
 :host(:hover), :host([active]) {

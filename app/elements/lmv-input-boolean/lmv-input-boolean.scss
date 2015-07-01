@@ -1,0 +1,45 @@
+@import "../elements";
+
+:host {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+
+  cursor: pointer;
+
+  border: 1px solid $color-1;
+  transition: border-color $anim-duration;
+
+  padding: 2px;
+
+  div.fill {
+    margin-top: 50%;
+    margin-left: 50%;
+    width: 0;
+    height: 0;
+    background-color: $color-1;
+    transition: all $anim-duration;
+    transition:
+      background-color $anim-duration,
+      height $anim-duration,
+      width $anim-duration,
+      margin-top $anim-duration,
+      margin-left $anim-duration;
+  }
+}
+
+:host([value]) {
+  div.fill {
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
+
+:host(:hover) {
+  border-color: $color-2;
+  div.fill {
+    background-color: $color-2;
+  }
+}

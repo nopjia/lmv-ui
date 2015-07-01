@@ -38,7 +38,7 @@ $indent-size: 15px;
     &[has-children] {
       visibility: visible;
       cursor: pointer;
-      transition: transform $color-bg-anim-duration;
+      transition: transform $anim-duration;
     }
     &[expanded] {
       transform: rotate(90deg);

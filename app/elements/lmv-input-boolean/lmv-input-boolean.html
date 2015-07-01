@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-input-boolean">
+  <link rel="import" type="css" href="lmv-input-boolean.css">
+
+  <template>
+    <div class="fill"></div>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.InputBoolean = Polymer({
+    is: "lmv-input-boolean",
+
+    properties: {
+      value: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+        notify: true,
+        observer: "_valueChanged",
+      }
+    },
+
+    listeners: {
+      click: "toggleValue"
+    },
+
+    toggleValue: function() {
+      this.value  = !this.value;
+    },
+
+    _valueChanged: function(newVal, oldVal) {
+      console.log("value changed '" + oldVal + "' to '" + newVal + "'");
+      this.fire("value-change");
+    },
+  });
+})();
+</script>

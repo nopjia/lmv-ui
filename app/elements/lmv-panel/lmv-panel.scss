@@ -17,7 +17,7 @@
   cursor: move;
 
   background-color: $color-bg;
-  transition: background-color $color-bg-anim-duration;
+  transition: background-color $anim-duration;
 
   flex-shrink: 0;
   display: flex;
@@ -29,7 +29,7 @@
   .icon {
     cursor: pointer;
 
-    transition: transform $color-bg-anim-duration;
+    transition: transform $anim-duration;
   }
 }
 
