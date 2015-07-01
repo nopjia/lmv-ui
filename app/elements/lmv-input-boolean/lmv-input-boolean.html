@@ -4,7 +4,7 @@
   <link rel="import" type="css" href="lmv-input-boolean.css">
 
   <template>
-    <div class="fill"></div>
+    <div id="fill"></div>
   </template>
 </dom-module>
 
@@ -31,9 +31,8 @@
       this.value  = !this.value;
     },
 
-    _valueChanged: function(newVal, oldVal) {
-      console.log("value changed '" + oldVal + "' to '" + newVal + "'");
-      this.fire("value-change");
+    _valueChanged: function(value) {
+      this.fire("value-change", { value: value });
     },
   });
 })();

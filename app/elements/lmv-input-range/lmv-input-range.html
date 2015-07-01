@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-input-range">
+  <link rel="import" type="css" href="lmv-input-range.css">
+
+  <template>
+    <div id="fill"></div>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.InputRange = Polymer({
+    is: "lmv-input-range",
+
+    properties: {
+      value: {
+        type: Number,
+        value: 0,
+        reflectToAttribute: true,
+        notify: true,
+        observer: "_valueChanged",
+      }
+    },
+
+    listeners: {
+      track: "_onDrag",
+      click: "_onClick",
+    },
+
+    _valueChanged: function(value) {
+      this.$.fill.style.width = value*100 + "%";
+      this.fire("value-change", { value: value });
+    },
+
+    _onClick: function(e) {
+      this._setValue(e.clientX);
+    },
+
+    _onDrag: function(e) {
+      if (e.detail.state === "track") {
+        this._setValue(e.detail.x);
+      }
+    },
+
+    _setValue: function(xpos) {
+      var rect = this.getBoundingClientRect();
+      this.value = (xpos - rect.left) / rect.width;
+      this.value = Math.max(Math.min(this.value, 1.0), 0.0);
+    }
+  });
+})();
+</script>

@@ -1,0 +1,28 @@
+@import "../elements";
+
+:host {
+  display: inline-block;
+  width: 5em;
+  height: 1em;
+
+  cursor: pointer;
+
+  border: 1px solid $color-1;
+  transition: border-color $anim-duration;
+
+  padding: 2px;
+
+  #fill {
+    width: 50%;
+    height: 100%;
+    background-color: $color-1;
+    transition: background-color $anim-duration;
+  }
+}
+
+:host(:hover) {
+  border-color: $color-2;
+  #fill {
+    background-color: $color-2;
+  }
+}
