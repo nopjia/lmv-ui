@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-input-option">
+  <link rel="import" type="css" href="lmv-input-option.css">
+
+  <template>
+    <div id="display">{{label}}</div>
+    <div id="options" expanded$="{{expanded}}">
+      <content select="option"></content>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.InputBoolean = Polymer({
+    is: "lmv-input-option",
+
+    properties: {
+      value: {
+        type: String,
+        reflectToAttribute: true,
+        notify: true,
+        observer: "_valueChanged",
+      }
+    },
+
+    listeners: {
+      click: "_onClick"
+    },
+
+    _valueChanged: function(value) {
+      // sync label
+      this.label = undefined;
+      if (value) {
+        var option = Polymer.dom(this).querySelector("option[value="+value+"]");
+        if (option)
+          this.label = option.innerHTML;
+      }
+      this.fire("value-change", { value: value });
+    },
+
+    _onClick: function(e) {
+      if (e.target === this) {
+        this.expanded = !this.expanded;
+        return;
+      }
+
+      this.value = e.target.value;
+      this.expanded = false;
+    }
+  });
+})();
+</script>

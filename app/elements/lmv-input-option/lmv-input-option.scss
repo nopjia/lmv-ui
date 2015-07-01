@@ -1,0 +1,44 @@
+@import "../elements";
+
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  width: 5em;
+  height: 1em;
+
+  cursor: pointer;
+
+  border: 1px solid $color-1;
+  transition: border-color $anim-duration;
+
+  padding: 2px;
+}
+
+#display {
+  height: 100%;
+}
+
+#options {
+  position: fixed;
+  background-color: $color-bg;
+
+  display: none;
+
+  &[expanded] {
+    display: block;
+  }
+
+  ::content option {
+    min-width: 10em;
+    width: auto;
+    height: auto;
+    font-size: 1em;
+    padding: 0.4em;
+    margin: 0;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $color-bg-hover;
+    }
+  }
+}
