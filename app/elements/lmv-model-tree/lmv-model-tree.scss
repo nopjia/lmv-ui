@@ -11,3 +11,7 @@
     color: #999;
   }
 }
+
+::content lmv-tree-node.selected /deep/ div {
+  text-decoration: underline;
+}
