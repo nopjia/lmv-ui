@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-model-context-menu">
+  <link rel="import" type="css" href="lmv-model-context-menu.css">
+
+  <template>
+    <lmv-context-menu id="menu" on-open="onOpen">
+      <template is="dom-if" if="{{hasSelection}}">
+        <lmv-button on-click="isolate">
+          <iron-icon class="icon" icon="visibility"></iron-icon>
+          <span>Isolate</span>
+        </lmv-button>
+        <lmv-button on-click="hide">
+          <iron-icon class="icon" icon="visibility-off"></iron-icon>
+          <span>Hide</span>
+        </lmv-button>
+        <lmv-button on-click="focus">
+          <iron-icon class="icon" icon="fullscreen"></iron-icon>
+          <span>Focus</span>
+        </lmv-button>
+      </template>
+      <template is="dom-if" if="{{hasHidden}}">
+        <lmv-button on-click="showAll">
+          <iron-icon class="icon" icon="refresh"></iron-icon>
+          <span>Show All</span>
+        </lmv-button>
+      </template>
+    </lmv-context-menu>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.ModelContextMenu = Polymer({
+    is: "lmv-model-context-menu",
+
+    attached: function() {
+      // redirect menu target
+      this.$.menu.target = this.parentNode;
+
+      if (!LMVUI._getViewerReference(this))
+        return;
+    },
+    onOpen: function(e) {
+      this.hasSelection = false;
+      this.hasHidden = false;
+
+      if (!this.viewer)
+        return;
+
+      var result = this.viewer.impl.castRay(e.detail.x, e.detail.y);
+      if (result) {
+        this.viewer.select(result.dbId);
+        this.hasSelection = true;
+      }
+      if (this.viewer.impl.visibilityManager.isolatedNodes.length || this.viewer.impl.visibilityManager.hiddenNodes.length)
+        this.hasHidden = true;
+    },
+    isolate: function() {
+      this.viewer.isolate(this.viewer.getSelection());
+    },
+    hide: function() {
+      this.viewer.hide(this.viewer.getSelection());
+    },
+    focus: function() {
+      this.viewer.fitToView(this.viewer.getSelection());
+    },
+    showAll: function() {
+      this.viewer.showAll();
+    },
+    clearSelection: function() {
+      this.viewer.clearSelection();
+    },
+  });
+})();
+</script>

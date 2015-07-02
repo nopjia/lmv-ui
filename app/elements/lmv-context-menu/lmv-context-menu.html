@@ -4,7 +4,6 @@
   <link rel="import" type="css" href="lmv-context-menu.css">
 
   <template>
-    <span>Context Menu</span>
     <content></content>
   </template>
 </dom-module>
@@ -20,12 +19,15 @@
   var _currX, _currY;
 
   function openContextMenu(x,y) {
-    if (Math.abs(_lastX-x) < _DELTA_EPS && Math.abs(_lastY-y) < _DELTA_EPS) {
-      this.show = true;
-      this.style.left = x + "px";
-      this.style.bottom = "calc( 100% - " + y + "px )";
-      this.fire("open");
-    }
+    // if move too much, don't open
+    if (Math.abs(_lastX-x) > _DELTA_EPS || Math.abs(_lastY-y) > _DELTA_EPS)
+      return;
+
+    this.style.left = x + "px";
+    this.style.bottom = "calc( 100% - " + y + "px )";
+
+    this.show = true;
+    this.fire("open", { x:x, y:y });
   }
   function closeContextMenu() {
     this.show = false;
