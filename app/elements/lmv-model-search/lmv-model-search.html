@@ -34,8 +34,7 @@
       this._doSearch = this._doSearch.bind(this);
     },
     attached: function() {
-      if (!LMVUI._getViewerReference(this))
-        return;
+      LMVUI._getViewerReference(this);
     },
     _queryChanged: function() {  // delayed search, as typing
       clearTimeout(this.timeout);

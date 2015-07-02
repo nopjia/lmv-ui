@@ -1,0 +1,13 @@
+@import "../elements";
+
+:host {
+}
+
+::content lmv-tree-node {
+  &.selected {
+    color: $color-2;
+  }
+  &.grayed {
+    color: #999;
+  }
+}

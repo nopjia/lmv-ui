@@ -1,0 +1,113 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-model-tree">
+  <link rel="import" type="css" href="lmv-model-tree.css">
+  <template>
+    <content></content>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  var _shiftKey, _ctrlKey;
+
+  LMVUI.ModelTree = Polymer({
+    is: "lmv-model-tree",
+
+    allNodes: {},   // cache flat reference to all nodes for fast iteration
+
+    attached: function() {
+      if (!LMVUI._getViewerReference(this))
+        return;
+
+      var self = this;
+
+      // viewer init event, build new tree
+      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+        self.setTree();
+      });
+
+      // viewer events update nodes
+      this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
+        // clear selected
+        for (var k in self.allNodes) {
+          self.allNodes[k].classList.remove("selected");
+        }
+        // add selected
+        for (var i=0; i<event.dbIdArray.length; i++) {
+          self.allNodes[event.dbIdArray[i]].classList.add("selected");
+        }
+      });
+      this.viewer.addEventListener(Autodesk.Viewing.HIDE_EVENT, function(event) {
+        for (var i=0; i<event.nodeIdArray.length; i++) {
+          self.allNodes[event.nodeIdArray[i]].classList.add("grayed");
+        }
+      });
+      this.viewer.addEventListener(Autodesk.Viewing.ISOLATE_EVENT, function(event) {
+        for (var k in self.allNodes) {
+          if (event.nodeIdArray.length)
+            self.allNodes[k].classList.add("grayed");
+          else
+            self.allNodes[k].classList.remove("grayed");
+        }
+        for (var i=0; i<event.nodeIdArray.length; i++) {
+          self.allNodes[event.nodeIdArray[i]].classList.remove("grayed");
+        }
+      });
+
+      // track shift/ctrl modifier keys
+      // TODO_NOP: bug here
+      // TODO_NOP: remove event
+      document.addEventListener("keydown", function(event) {
+        _shiftKey = event.shiftKey;
+        _ctrlKey = event.ctrlKey || (event.keyCode === 91) || (event.which === 91);
+      }, true);
+      document.addEventListener("keyup", function(event) {
+        _shiftKey = event.shiftKey;
+        _ctrlKey = event.ctrlKey || (event.keyCode === 91) || (event.which === 91);
+      }, true);
+
+      this._newNodeCallback = this._newNodeCallback.bind(this);
+      this._onNodeClick = this._onNodeClick.bind(this);
+      this._onNodeDoubleClick = this._onNodeDoubleClick.bind(this);
+    },
+    setTree: function() {
+      // clear
+      this.innerHTML = "";
+      this.dataNode = {};
+
+      var root = this.viewer.model.getRoot();
+      // go down to deepest single child
+      // to get rid of single roots in model tree
+      while (root.children.length === 1) {
+        root = root.children[0];
+      }
+      var pdom = Polymer.dom(this);
+      for (var i=0; i<root.children.length; i++) {
+        var childNode = root.children[i];
+        var childElem = new LMVUI.TreeNode(childNode.name, childNode, this._newNodeCallback);
+        pdom.appendChild(childElem);
+      }
+    },
+    _newNodeCallback: function(elem) {
+      elem.addEventListener("node-click", this._onNodeClick);
+      elem.addEventListener("node-dblclick", this._onNodeDoubleClick);
+      if (this.allNodes[elem.dataNode.dbId])
+        console.log("ERROR: Duplicate dbId " + elem.dataNode.dbId);
+      this.allNodes[elem.dataNode.dbId] = elem;
+    },
+    _onNodeClick: function(event) {
+      if (_shiftKey || _ctrlKey)
+        this.viewer.toggleSelect(event.target.dataNode.dbId);
+      else
+        if (!event.target.selected)
+          this.viewer.select(event.target.dataNode.dbId);
+      event.stopPropagation();
+    },
+    _onNodeDoubleClick: function(event) {
+      this.viewer.fitToView(event.target.dataNode.dbId);
+      event.stopPropagation();
+    },
+  });
+})();
+</script>

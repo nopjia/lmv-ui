@@ -4,7 +4,7 @@
   <link rel="import" type="css" href="lmv-model-context-menu.css">
 
   <template>
-    <lmv-context-menu id="menu" on-open="onOpen">
+    <lmv-context-menu id="menu" on-open="_onOpen">
       <template is="dom-if" if="{{hasSelection}}">
         <lmv-button on-click="isolate">
           <iron-icon class="icon" icon="visibility"></iron-icon>
@@ -41,7 +41,7 @@
       if (!LMVUI._getViewerReference(this))
         return;
     },
-    onOpen: function(e) {
+    _onOpen: function(e) {
       this.hasSelection = false;
       this.hasHidden = false;
 
