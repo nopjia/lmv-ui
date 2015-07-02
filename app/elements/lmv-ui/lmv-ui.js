@@ -27,16 +27,9 @@
       });
 
       // property db loaded
-      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
-        //self.docName = self.viewerElem.doc ? self.viewerElem.doc.getRootItem().children[0].name : undefined;
-
-        self.modelTree = self.viewer.model.getRoot();
-        // go down to deepest single child
-        // to get rid of single roots in model tree
-        while (self.modelTree.children.length === 1) {
-          self.modelTree = self.modelTree.children[0];
-        }
-      });
+      // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+      //   self.docName = self.viewerElem.doc ? self.viewerElem.doc.getRootItem().children[0].name : undefined;
+      // });
 
       // geometry complete
       this.viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function() {
@@ -65,7 +58,7 @@
     },
 
     openModelTree: function() {
-      this.createPanel("Model Tree", new LMVUI.Tree(this.modelTree));
+      this.createPanel("Model Tree", new LMVUI.ModelTree());
     },
 
     openModelProperty: function() {

@@ -3,6 +3,7 @@
 <dom-module id="lmv-model-tree">
   <link rel="import" type="css" href="lmv-model-tree.css">
   <template>
+    <lmv-model-search></lmv-model-search>
     <content></content>
   </template>
 </dom-module>
@@ -20,7 +21,15 @@
       if (!LMVUI._getViewerReference(this))
         return;
 
+      // bind callbacks
+      this._newNodeCallback = this._newNodeCallback.bind(this);
+      this._onNodeClick = this._onNodeClick.bind(this);
+      this._onNodeDoubleClick = this._onNodeDoubleClick.bind(this);
+
       var self = this;
+
+      if (this.viewer.model)
+        self.setTree();
 
       // viewer init event, build new tree
       this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
@@ -66,10 +75,6 @@
         _shiftKey = event.shiftKey;
         _ctrlKey = event.ctrlKey || (event.keyCode === 91) || (event.which === 91);
       }, true);
-
-      this._newNodeCallback = this._newNodeCallback.bind(this);
-      this._onNodeClick = this._onNodeClick.bind(this);
-      this._onNodeDoubleClick = this._onNodeDoubleClick.bind(this);
     },
     setTree: function() {
       // clear
