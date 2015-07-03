@@ -10,7 +10,7 @@
 
 <script>
 (function() {
-  var _shiftKey, _ctrlKey;
+  var _shiftKey;
 
   LMVUI.ModelTree = Polymer({
     is: "lmv-model-tree",
@@ -64,16 +64,14 @@
         }
       });
 
-      // track shift/ctrl modifier keys
+      // track shift modifier key
       // TODO_NOP: bug here
       // TODO_NOP: remove event
       document.addEventListener("keydown", function(event) {
         _shiftKey = event.shiftKey;
-        _ctrlKey = event.ctrlKey || (event.keyCode === 91) || (event.which === 91);
       }, true);
       document.addEventListener("keyup", function(event) {
         _shiftKey = event.shiftKey;
-        _ctrlKey = event.ctrlKey || (event.keyCode === 91) || (event.which === 91);
       }, true);
     },
     setTree: function() {
@@ -102,7 +100,7 @@
       this.allNodes[elem.dataNode.dbId] = elem;
     },
     _onNodeClick: function(event) {
-      if (_shiftKey || _ctrlKey)
+      if (_shiftKey)
         this.viewer.toggleSelect(event.target.dataNode.dbId);
       else
         if (!event.target.selected)
