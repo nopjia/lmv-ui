@@ -6,10 +6,10 @@
     // ready
 
     attached: function() {
-      var self = this;
-
       if (!LMVUI._getViewerReference(this))
         return;
+
+      var self = this;
 
       // hook up to viewer events
 
@@ -41,7 +41,7 @@
         self.renderStats.push(["Instanced Polys", geomList.instancePolyCount.toLocaleString()]);
         self.renderStats.push(["Geometry Polys",  geomList.geomPolyCount.toLocaleString()]);
         self.renderStats.push(["Geometry Size",   (geomList.geomMemory/(1024*1024)).toFixed(2) + " MB"]);
-        self.renderStats.push(["Load time",       (self.viewer.impl.svfloader.loadTime/1000).toFixed(2) + " s"]);
+        // self.renderStats.push(["Load time",       (self.viewer.impl.svfloader.loadTime/1000).toFixed(2) + " s"]);
       });
     },
 
@@ -58,12 +58,14 @@
     },
 
     openModelTree: function() {
-      this.createPanel("Model Tree", new LMVUI.ModelTree());
+      var elem = new LMVUI.ModelTree();
+      elem.viewer = this.viewer;
+      this.createPanel("Model Tree", elem);
     },
 
     openModelProperty: function() {
       var elem = new LMVUI.PropertyView();
-      elem.viewer = this.viewer;  // specify viewer, so no automatic finding
+      elem.viewer = this.viewer;
       this.createPanel("Model Property", elem);
     },
 

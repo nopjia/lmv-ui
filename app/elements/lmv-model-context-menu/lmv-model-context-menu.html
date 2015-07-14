@@ -35,11 +35,11 @@
     is: "lmv-model-context-menu",
 
     attached: function() {
-      // redirect menu target
-      this.$.menu.target = this.parentNode;
-
       if (!LMVUI._getViewerReference(this))
         return;
+
+      // redirect menu target
+      this.$.menu.target = this.parentNode;
     },
     _onOpen: function(e) {
       this.hasSelection = false;
