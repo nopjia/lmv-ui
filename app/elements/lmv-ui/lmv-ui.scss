@@ -39,3 +39,10 @@ lmv-panel {
   max-width: 360px;
   max-height: 600px;
 }
+
+lmv-progress-bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: transparent;
+}

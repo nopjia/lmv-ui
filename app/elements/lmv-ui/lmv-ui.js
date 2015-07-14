@@ -16,6 +16,7 @@
       // load progress
       this.viewer.addEventListener(Autodesk.Viewing.PROGRESS_UPDATE_EVENT, function(event) {
         self.loadProgress = event.percent;
+        self.isLoading = self.loadProgress < 100;
       });
 
       // init 2D/3D nav tool

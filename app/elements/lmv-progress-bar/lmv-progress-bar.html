@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-progress-bar">
+  <link rel="import" type="css" href="lmv-progress-bar.css">
+
+  <template>
+    <div id="progress"></div>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.ProgressBar = Polymer({
+    is: "lmv-progress-bar",
+
+    properties: {
+      progress: {
+        type: Number,
+        value: 0,
+        reflectToAttribute: true,
+        observer: "_progressChanged",
+      }
+    },
+
+    _progressChanged: function(value) {
+      this.$.progress.style.width = value + "%";
+    },
+  });
+})();
+</script>

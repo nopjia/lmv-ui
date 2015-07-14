@@ -1,0 +1,12 @@
+@import "../elements";
+
+:host {
+  background-color: $color-bg;
+  width: 100px;
+  height: 10px;
+}
+
+#progress {
+  height: 100%;
+  background-color: $color-bg;
+}

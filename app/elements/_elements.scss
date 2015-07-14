@@ -16,6 +16,10 @@ $anim-duration: 0.2s;
   vertical-align: baseline;
 }
 
+[hidden] {
+  display: none;
+}
+
 // mixins
 // use mixins to standardize, to minimize css bloat
 

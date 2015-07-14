@@ -46,6 +46,8 @@
         <lmv-button on-click="openRenderStats"><iron-icon icon="assessment"></iron-icon></lmv-button>
       </div>
     </div>
+
+    <lmv-progress-bar progress="[[loadProgress]]" hidden$="[[!isLoading]]"></lmv-progress-bar>
   </template>
 
 </dom-module>
