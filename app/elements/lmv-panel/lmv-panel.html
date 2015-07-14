@@ -64,8 +64,14 @@
           this._left = rect.left;
           break;
         case "track":
+          // update pos
           this._top += e.detail.ddy;
           this._left += e.detail.ddx;
+          // check bounds
+          var BOUNDS_PAD = 50;  // don't want to do getBoundingClientRect every frame
+          this._top = Math.max(Math.min(this._top, window.innerHeight-BOUNDS_PAD), 0.0);
+          this._left = Math.max(Math.min(this._left, window.innerWidth-BOUNDS_PAD), 0.0);
+          // update css
           this.style.top = this._top + "px";
           this.style.left = this._left + "px";
           break;
