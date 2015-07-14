@@ -8,12 +8,7 @@ $indent-size: 15px;
   user-select: none;
 
   & > #content {
-    display: none;
     padding-left: $indent-size;
-
-    &[expanded] {
-      display: block;
-    }
   }
 
   & > #line {

@@ -12,7 +12,7 @@
       <iron-icon class="icon" icon="expand-more" on-click="toggleCollapse"></iron-icon>
       <iron-icon class="icon" icon="close" on-click="close"></iron-icon>
     </div>
-    <div id="content">
+    <div id="content" hidden$="[[collapse]]">
       <content></content>
     </div>
   </template>

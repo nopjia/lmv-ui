@@ -39,10 +39,6 @@
 }
 
 :host([collapse]) > {
-  #content {
-    display: none;
-  }
-
   #header .icon {
     transform: rotate(180deg);
   }

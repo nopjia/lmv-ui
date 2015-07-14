@@ -14,7 +14,7 @@
         on-click="_onNodeClick"
         on-dblclick="_onNodeDoubleClick">{{label}}</span>
     </div>
-    <div id="content" expanded$="{{expanded}}">
+    <div id="content" hidden$="[[!expanded]]">
       <content></content>
     </div>
   </template>

@@ -28,12 +28,6 @@
   max-height: 200px;
   overflow-y: scroll;
 
-  display: none;
-
-  &[expanded] {
-    display: block;
-  }
-
   ::content option {
     min-width: 10em;
     width: auto;

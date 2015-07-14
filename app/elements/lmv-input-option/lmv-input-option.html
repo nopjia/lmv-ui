@@ -10,7 +10,7 @@
         <iron-icon class="expand-icon" icon="unfold-more"></iron-icon>
       </div>
     </div>
-    <div id="options" expanded$="{{expanded}}">
+    <div id="options" hidden$="{{!expanded}}">
       <content select="option"></content>
     </div>
   </template>
@@ -31,6 +31,10 @@
       options: {
         type: Array,
         observer: "_optionsChanged"
+      },
+      expanded: {
+        type: Boolean,
+        value: false
       }
     },
 
