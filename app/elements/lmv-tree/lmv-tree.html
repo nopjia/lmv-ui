@@ -36,34 +36,18 @@
         value: false,
         reflectToAttribute: true
       },
-      dataNode: Object,
     },
 
-    /**
-     * @param label    String
-     * @param dataNode Object with "children" Array
-     * @param cb       function(elem) callback with itself
-     */
-    factoryImpl: function(label, dataNode, cb) {
-      this.label = label;
-      this.dataNode = dataNode;
-      this._hasChildren = this.dataNode.children && this.dataNode.children.length > 0;
-      this.constructorCallback = cb;
-      if (this.constructorCallback)
-        this.constructorCallback(this);
+    attached: function() {
+      // NOTE_NOP: ugly, have children notify its parent to show expand arrow
+      var pthis = Polymer.dom(this);
+      if (pthis.parentNode.tagName === "LMV-TREE-NODE")
+        pthis.parentNode._hasChildren = true;
     },
 
-    // NOP_TODO: this doesn't work with declarative style
     toggleExpand: function() {
       this.expanded = !this.expanded;
-
-      if (this.expanded && this._hasChildren && Polymer.dom(this).children.length===0) {
-        for (var i=0; i<this.dataNode.children.length; i++) {
-          var childNode = this.dataNode.children[i];
-          var childElem = new LMVUI.TreeNode(childNode.name, childNode, this.constructorCallback);
-          Polymer.dom(this).appendChild(childElem);
-        }
-      }
+      this.fire("node-expand");
     },
 
     _onNodeClick: function() {
@@ -100,19 +84,27 @@
       root: Object
     },
 
-    factoryImpl: function(root) {
-      if (root) this.setTree(root);
+    setTree: function(root) {
+      Polymer.dom(this).innerHTML = "";
+      for (var i=0; i<root.children.length; i++) {
+        this._buildTree(root.children[i], this);
+      }
     },
 
-    setTree: function(root) {
-      this.root = root;
-      var pthis = Polymer.dom(this);
-      pthis.innerHTML = ""; // clear any existing children
-      for (var i=0; i<root.children.length; i++) {
-        var childNode = root.children[i];
-        pthis.appendChild(new LMVUI.TreeNode(childNode.name, childNode));
+    _buildTree: function(node, parentElem) {
+      // create node
+      var newElem = new LMVUI.TreeNode();
+      newElem.label = node.name;
+      Polymer.dom(parentElem).appendChild(newElem);
+
+      // recursive
+      if (node.children) {
+        for (var i=0; i<node.children.length; i++) {
+          this._buildTree(node.children[i], newElem);
+        }
       }
     }
+
   });
 })();
 </script>

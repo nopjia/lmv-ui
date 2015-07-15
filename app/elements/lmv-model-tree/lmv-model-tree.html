@@ -22,9 +22,10 @@
         return;
 
       // bind callbacks
-      this._newNodeCallback = this._newNodeCallback.bind(this);
       this._onNodeClick = this._onNodeClick.bind(this);
       this._onNodeDoubleClick = this._onNodeDoubleClick.bind(this);
+      this._onNodeExpand = this._onNodeExpand.bind(this);
+      this._createNewNode = this._createNewNode.bind(this);
 
       var self = this;
 
@@ -93,17 +94,21 @@
       }
       var pdom = Polymer.dom(this);
       for (var i=0; i<root.children.length; i++) {
-        var childNode = root.children[i];
-        var childElem = new LMVUI.TreeNode(childNode.name, childNode, this._newNodeCallback);
-        pdom.appendChild(childElem);
+        pdom.appendChild(this._createNewNode(root.children[i]));
       }
     },
-    _newNodeCallback: function(elem) {
+    _createNewNode: function(dataNode) {
+      var elem = new LMVUI.TreeNode();
+      elem.label = dataNode.name;
+      elem.dataNode = dataNode;
+      elem._hasChildren = dataNode.children && dataNode.children.length;
       elem.addEventListener("node-click", this._onNodeClick);
       elem.addEventListener("node-dblclick", this._onNodeDoubleClick);
-      if (this.allNodes[elem.dataNode.dbId])
-        console.log("ERROR: Duplicate dbId " + elem.dataNode.dbId);
-      this.allNodes[elem.dataNode.dbId] = elem;
+      elem.addEventListener("node-expand", this._onNodeExpand);
+      if (this.allNodes[dataNode.dbId])
+        console.log("ERROR: Duplicate dbId " + dataNode.dbId);
+      this.allNodes[dataNode.dbId] = elem;
+      return elem;
     },
     _onNodeClick: function(event) {
       if (_shiftKey)
@@ -117,6 +122,16 @@
       this.viewer.fitToView(event.target.dataNode.dbId);
       event.stopPropagation();
     },
+    _onNodeExpand: function(event) {
+      var node = event.target;
+      if (node.expanded &&
+        node.dataNode.children && node.dataNode.children.length &&
+        Polymer.dom(node).children.length===0) {
+        for (var i=0; i<node.dataNode.children.length; i++) {
+          Polymer.dom(node).appendChild(this._createNewNode(node.dataNode.children[i]));
+        }
+      }
+    }
   });
 })();
 </script>

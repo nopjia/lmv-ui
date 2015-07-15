@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-doc-tree">
+  <link rel="import" type="css" href="lmv-doc-tree.css">
+  <template>
+    <content></content>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  var isLeafNode = function(node) {
+    return node.type === "geometry" &&
+      (node.role === "3d" || node.role === "2d");
+  };
+
+  LMVUI.DocTree = Polymer({
+    is: "lmv-doc-tree",
+
+    attached: function() {
+      // TODO_NOP: resolve these gets here
+      this.viewerElem = LMVUI.getViewerElem();
+      this.viewer = LMVUI.getViewer();
+
+      this._onNodeClick = this._onNodeClick.bind(this);
+
+      var self = this;
+
+      if (this.viewer.model)
+        self.setTree();
+
+      // viewer init event, build new tree
+      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+        self.setTree();
+      });
+    },
+
+    setTree: function() {
+      if (!this.viewerElem.doc)
+        return;
+
+      // clear
+      this.innerHTML = "";
+
+      var root = this.viewerElem.doc.getRootItem();
+
+      for (var i=0; i<root.children.length; i++) {
+        this._buildTree(root.children[i], this);
+      }
+    },
+
+    _buildTree: function(node, parentElem) {
+      if (!node.name)
+        return;
+
+      // create node
+      var newElem = new LMVUI.TreeNode();
+      newElem.label = node.name;
+      newElem.dataNode = node;
+      newElem.expanded = true;
+      newElem.addEventListener("node-click", this._onNodeClick);
+
+      Polymer.dom(parentElem).appendChild(newElem);
+
+      // recursive
+      if (node.children) {
+        for (var i=0; i<node.children.length; i++) {
+          this._buildTree(node.children[i], newElem);
+        }
+      }
+    },
+
+    _onNodeClick: function(event) {
+      var nodeElem = event.target;
+      var dataNode = nodeElem.dataNode;
+      if (isLeafNode(dataNode)) {
+        // load view
+        var doc = this.viewerElem.doc;
+        var url = doc.getViewablePath(dataNode);
+        var fullUrl = doc.getFullPath(url);
+        // var geo = doc.getViewGeometry(dataNode);
+
+        // load model
+        this.viewer.impl.unloadCurrentModel();
+        this.viewer.loadModel(fullUrl, undefined, doc.getPropertyDbPath());
+      }
+      else {
+        nodeElem.toggleExpand();
+      }
+      event.stopPropagation();
+    },
+  });
+})();
+</script>

@@ -25,21 +25,26 @@ LMVUI.stringToDOM = function(str) {
 
 // lazily get and cache viewer
 var viewerElem, viewer;
-LMVUI.getViewer = function() {
-  if (viewer)
-    return viewer;
 
+LMVUI.getViewerElem = function() {
+  if (viewerElem)
+    return viewerElem;
   viewerElem = document.querySelector("lmv-viewer");
   if (!viewerElem) {
     console.log("ERROR: Cannot find lmv-viewer element");
     return;
   }
-  viewer = viewerElem.viewer;
+  return viewerElem;
+};
+
+LMVUI.getViewer = function() {
+  if (viewer)
+    return viewer;
+  viewer = LMVUI.getViewerElem().viewer;
   if (!viewer) {
     console.log("ERROR: Cannot find viewer from lmv-viewer element");
     return;
   }
-
   return viewer;
 };
 
