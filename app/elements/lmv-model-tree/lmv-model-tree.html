@@ -37,6 +37,8 @@
       });
 
       // viewer events update nodes
+      // TODO_NOP: if things happen to nodes when they're not created yet,
+      // they won't be reflected
       this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
         // clear selected
         for (var k in self.allNodes) {
@@ -44,12 +46,16 @@
         }
         // add selected
         for (var i=0; i<event.dbIdArray.length; i++) {
-          self.allNodes[event.dbIdArray[i]].classList.add("selected");
+          var node = self.allNodes[event.dbIdArray[i]];
+          if (node)
+            node.classList.add("selected");
         }
       });
       this.viewer.addEventListener(Autodesk.Viewing.HIDE_EVENT, function(event) {
         for (var i=0; i<event.nodeIdArray.length; i++) {
-          self.allNodes[event.nodeIdArray[i]].classList.add("grayed");
+          var node = self.allNodes[event.nodeIdArray[i]];
+          if (node)
+            node.classList.add("grayed");
         }
       });
       this.viewer.addEventListener(Autodesk.Viewing.ISOLATE_EVENT, function(event) {
@@ -60,13 +66,13 @@
             self.allNodes[k].classList.remove("grayed");
         }
         for (var i=0; i<event.nodeIdArray.length; i++) {
-          self.allNodes[event.nodeIdArray[i]].classList.remove("grayed");
+          var node = self.allNodes[event.nodeIdArray[i]];
+          if (node)
+            node.classList.remove("grayed");
         }
       });
 
       // track shift modifier key
-      // TODO_NOP: bug here
-      // TODO_NOP: remove event
       document.addEventListener("keydown", function(event) {
         _shiftKey = event.shiftKey;
       }, true);
@@ -77,7 +83,7 @@
     setTree: function() {
       // clear
       this.innerHTML = "";
-      this.dataNode = {};
+      this.allNodes = {};
 
       var root = this.viewer.model.getRoot();
       // go down to deepest single child

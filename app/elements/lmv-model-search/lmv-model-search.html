@@ -36,7 +36,9 @@
     attached: function() {
       LMVUI._getViewerReference(this);
     },
-    _queryChanged: function() {  // delayed search, as typing
+    _queryChanged: function(newVal, oldVal) {  // delayed search, as typing
+      if (oldVal === undefined)
+        return;
       clearTimeout(this.timeout);
       this.timeout = setTimeout(this._doSearch, this.TIMEOUT);
     },
