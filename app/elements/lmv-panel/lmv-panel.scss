@@ -44,10 +44,14 @@
   }
 }
 
+:host([_dragged]) {
+  position: absolute;
+}
+
 ::content p {
   margin-top: 0;
 }
 
-:host([_dragged]) {
-  position: absolute;
+::content hr {
+  @include hr-format();
 }

@@ -46,22 +46,33 @@
       });
     },
 
-    createPanel: function(title, elem) {
+    createPanel: function(title, elems) {
       var panel = new LMVUI.Panel(title);
-      Polymer.dom(panel).appendChild(elem);
+
+      if (Array.isArray(elems)) {
+        elems.forEach(function(e) {
+          Polymer.dom(panel).appendChild(e);
+        });
+      }
+      else {
+        Polymer.dom(panel).appendChild(elems);
+      }
+
       Polymer.dom(this.root).appendChild(panel);
     },
 
-    openRenderStats: function() {
+    openeRenderStats: function() {
       var elem = new LMVUI.Table(this.renderStats);
       elem.right = true;
       this.createPanel("Render Stats", elem);
     },
 
     openModelTree: function() {
-      var elem = new LMVUI.ModelTree();
-      elem.viewer = this.viewer;
-      this.createPanel("Model Tree", elem);
+      var docTree = new LMVUI.DocTree();
+      var modelSearch = new LMVUI.ModelSearch();
+      var modelTree = new LMVUI.ModelTree();
+      modelSearch.viewer = modelTree.viewer = this.viewer;
+      this.createPanel("Model Structure", [docTree, modelSearch, modelTree]);
     },
 
     openModelProperty: function() {

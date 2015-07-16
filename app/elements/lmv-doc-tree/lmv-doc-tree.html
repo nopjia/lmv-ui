@@ -38,32 +38,24 @@
     setTree: function() {
       if (!this.viewerElem.doc)
         return;
-
-      // clear
-      this.innerHTML = "";
-
+      Polymer.dom(this).innerHTML = "";
       var root = this.viewerElem.doc.getRootItem();
-
       for (var i=0; i<root.children.length; i++) {
         this._buildTree(root.children[i], this);
       }
     },
 
     _buildTree: function(node, parentElem) {
-      if (!node.name)
-        return;
-
       // create node
       var newElem = new LMVUI.TreeNode();
       newElem.label = node.name;
       newElem.dataNode = node;
       newElem.expanded = true;
       newElem.addEventListener("node-click", this._onNodeClick);
-
       Polymer.dom(parentElem).appendChild(newElem);
 
       // recursive
-      if (node.children) {
+      if (node.children && !isLeafNode(node)) {
         for (var i=0; i<node.children.length; i++) {
           this._buildTree(node.children[i], newElem);
         }
