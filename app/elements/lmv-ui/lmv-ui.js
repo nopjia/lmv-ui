@@ -9,6 +9,8 @@
       if (!LMVUI._getViewerReference(this))
         return;
 
+      this.hasAnimation = false;
+
       var self = this;
 
       // hook up to viewer events
@@ -28,9 +30,9 @@
       });
 
       // property db loaded
-      // this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
-      //   self.docName = self.viewerElem.doc ? self.viewerElem.doc.getRootItem().children[0].name : undefined;
-      // });
+      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+        self.hasAnimation = self.viewer.impl.model.myData.animations;
+      });
 
       // geometry complete
       this.viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function() {

@@ -19,12 +19,11 @@
 
       if (this.viewer.model)
         this._initParams();
-      else {
-        var self = this;
-        this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
-          self._initParams();
-        });
-      }
+
+      var self = this;
+      this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
+        self._initParams();
+      });
     },
 
     _initParams: function() {
