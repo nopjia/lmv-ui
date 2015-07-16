@@ -54,10 +54,10 @@
       }
 
       var self = this;
-      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.unloadAnimation();
       });
-      this.viewer.addEventListener(Autodesk.Viewing.ANIMATION_READY_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.ANIMATION_READY_EVENT, function() {
         self.loadAnimation();
       });
     },
@@ -121,7 +121,11 @@
       this.time = this.animator.currentTime;
       if (this.time >= this.animator.duration)
         this.play(false);
-    }
+    },
+
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
+    },
   });
 })();
 </script>

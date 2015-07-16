@@ -16,26 +16,26 @@
       // hook up to viewer events
 
       // load progress
-      this.viewer.addEventListener(Autodesk.Viewing.PROGRESS_UPDATE_EVENT, function(event) {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.PROGRESS_UPDATE_EVENT, function(event) {
         self.loadProgress = event.percent / 100.0;
         self.isLoading = self.loadProgress < 1;
       });
 
       // init 2D/3D nav tool
       // TODO_NOP: should this be handled by viewer?
-      this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
         self.viewer.setDefaultNavigationTool(
           self.viewer.navigation.getIs2D() ? "pan" : "orbit"
         );
       });
 
       // property db loaded
-      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.hasAnimation = self.viewer.impl.model.myData.animations;
       });
 
       // geometry complete
-      this.viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.GEOMETRY_LOADED_EVENT, function() {
         // set render stats
         var geomList = self.viewer.impl.modelQueue().getGeometryList();
         self.renderStats = [];
@@ -93,6 +93,10 @@
       var elem = new LMVUI.AnimationPlayer();
       elem.viewer = this.viewer;
       this.createPanel("Animation", elem);
+    },
+
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
     },
 
   });

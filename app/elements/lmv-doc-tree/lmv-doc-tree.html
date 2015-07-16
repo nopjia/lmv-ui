@@ -29,7 +29,7 @@
         self.setTree();
 
       // viewer init event, build new tree
-      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.setTree();
       });
     },
@@ -79,6 +79,10 @@
         nodeElem.toggleExpand();
       }
       event.stopPropagation();
+    },
+
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
     },
   });
 })();

@@ -32,14 +32,14 @@
         self.setTree();
 
       // viewer init event, build new tree
-      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.setTree();
       });
 
       // viewer events update nodes
       // TODO_NOP: if things happen to nodes when they're not created yet,
       // they won't be reflected
-      this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
         // clear selected
         for (var k in self.allNodes) {
           self.allNodes[k].classList.remove("selected");
@@ -51,14 +51,14 @@
             node.classList.add("selected");
         }
       });
-      this.viewer.addEventListener(Autodesk.Viewing.HIDE_EVENT, function(event) {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.HIDE_EVENT, function(event) {
         for (var i=0; i<event.nodeIdArray.length; i++) {
           var node = self.allNodes[event.nodeIdArray[i]];
           if (node)
             node.classList.add("grayed");
         }
       });
-      this.viewer.addEventListener(Autodesk.Viewing.ISOLATE_EVENT, function(event) {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.ISOLATE_EVENT, function(event) {
         for (var k in self.allNodes) {
           if (event.nodeIdArray.length)
             self.allNodes[k].classList.add("grayed");
@@ -130,7 +130,10 @@
           Polymer.dom(node).appendChild(this._createNewNode(node.dataNode.children[i]));
         }
       }
-    }
+    },
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
+    },
   });
 })();
 </script>

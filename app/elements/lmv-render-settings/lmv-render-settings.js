@@ -21,7 +21,7 @@
         this._initParams();
 
       var self = this;
-      this.viewer.addEventListener(Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
         self._initParams();
       });
     },
@@ -84,6 +84,10 @@
     },
     _explodeChanged: function() {
       if (this.viewer) this.viewer.explode(this.explode);
-    }
+    },
+
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
+    },
   });
 })();

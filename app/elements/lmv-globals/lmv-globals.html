@@ -47,6 +47,8 @@ LMVUI.getViewer = function() {
   return viewer;
 };
 
+// TODO_NOP: maybe this should be a mixin pattern
+
 // utility function for LMV elements to find viewer, if not specified
 LMVUI._getViewerReference = function(elem) {
   if (!elem.viewer) {
@@ -57,6 +59,23 @@ LMVUI._getViewerReference = function(elem) {
     console.log(elem.tagName+": ERROR: Cannot find viewer");
   }
   return elem.viewer;
+};
+
+// utitliy function for LMV elements to handle and cleanup viewer event listeners
+LMVUI._addViewerListener = function(elem, type, func) {
+  elem.viewer.addEventListener(type, func);
+  if (!elem._viewerListeners)
+    elem._viewerListeners = {};
+  elem._viewerListeners[type] = func;
+};
+LMVUI._cleanupViewerListeners = function(elem) {
+  if (!elem._viewerListeners)
+    return;
+
+  for (var k in elem._viewerListeners) {
+    elem.viewer.removeEventListener(k, elem._viewerListeners[k]);
+  }
+  elem._viewerListeners = undefined;
 };
 
 })(); // closure

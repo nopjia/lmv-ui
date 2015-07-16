@@ -34,10 +34,10 @@
         this.setModelProperties();
 
       var self = this;
-      this.viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.setModelProperties();
       });
-      this.viewer.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
+      LMVUI._addViewerListener(this, Autodesk.Viewing.SELECTION_CHANGED_EVENT, function(event) {
         self.setModelProperties(event.dbIdArray[event.dbIdArray.length - 1]);
       });
     },
@@ -86,6 +86,10 @@
 
     _getPropForCat: function(cat) {
       return this.categories[cat];
+    },
+
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
     },
   });
 })();
