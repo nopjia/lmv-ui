@@ -61,7 +61,7 @@
       Polymer.dom(this.root).appendChild(panel);
     },
 
-    openeRenderStats: function() {
+    openRenderStats: function() {
       var elem = new LMVUI.Table(this.renderStats);
       elem.right = true;
       this.createPanel("Render Stats", elem);
@@ -85,7 +85,13 @@
       var elem = new LMVUI.RenderSettings();
       elem.viewer = this.viewer;
       this.createPanel("Render Settings", elem);
-    }
+    },
+
+    openAnimationPlayer: function() {
+      var elem = new LMVUI.AnimationPlayer();
+      elem.viewer = this.viewer;
+      this.createPanel("Animation", elem);
+    },
 
   });
 })();

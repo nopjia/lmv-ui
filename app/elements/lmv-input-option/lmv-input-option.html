@@ -72,6 +72,7 @@
 
       this.value = e.target.value;
       this.expanded = false;
+      this.fire("change", { value: this.value });
     }
   });
 })();

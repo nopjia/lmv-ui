@@ -49,11 +49,13 @@
 
     _onClick: function(e) {
       this._setValue(e.clientX);
+      this.fire("change", { value: this.value });
     },
 
     _onDrag: function(e) {
       if (e.detail.state === "track") {
         this._setValue(e.detail.x);
+        this.fire("change", { value: this.value });
       }
     },
   });

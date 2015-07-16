@@ -29,6 +29,7 @@
 
     toggleValue: function() {
       this.value  = !this.value;
+      this.fire("change", { value: this.value });
     },
 
     _valueChanged: function(value) {

@@ -15,6 +15,7 @@
 #header {
   font-size: 1.4rem;
   cursor: move;
+  user-select: none;
 
   background-color: $color-bg;
   transition: background-color $anim-duration;
