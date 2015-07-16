@@ -23,7 +23,7 @@
     },
 
     _progressChanged: function(value) {
-      this.$.progress.style.width = value + "%";
+      this.$.progress.style.width = value*100.0 + "%";
     },
   });
 })();
