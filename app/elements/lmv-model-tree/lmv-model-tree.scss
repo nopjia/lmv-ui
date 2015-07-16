@@ -1,17 +1,10 @@
 @import "../elements";
 
-:host {
-}
-
-::content lmv-tree-node {
-  &.selected {
-    color: $color-2;
-  }
-  &.grayed {
-    color: #999;
-  }
-}
-
-::content lmv-tree-node.selected /deep/ div {
+::content lmv-tree-node.selected::shadow #label {
+  color: $color-2;
   text-decoration: underline;
+}
+
+::content lmv-tree-node.grayed::shadow #label {
+  color: #999;
 }
