@@ -6,6 +6,9 @@
 
   display: flex;
   flex-direction: column;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 #header, #content {
@@ -37,6 +40,19 @@
 #content {
   overflow-x: hidden;
   overflow-y: auto;
+  box-sizing: border-box;
+}
+
+#resizer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  background-color: $color-bg;
+  cursor: nwse-resize;
+  user-select: none;
+  user-drag: none;
 }
 
 :host([collapse]) > {
