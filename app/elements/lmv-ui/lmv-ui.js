@@ -6,10 +6,11 @@
     // ready
 
     attached: function() {
-      if (!LMVUI._getViewerReference(this))
-        return;
+      if (!LMVUI._getViewerReference(this)) return;
+      this.viewerElem = this.viewerElem || LMVUI.getViewerElem();
 
       this.hasAnimation = false;
+      this.hasDoc = false;
 
       var self = this;
 
@@ -32,6 +33,7 @@
       // property db loaded
       LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.hasAnimation = self.viewer.impl.model.myData.animations;
+        self.hasDoc = !!self.viewerElem.doc;
       });
 
       // geometry complete
@@ -70,11 +72,10 @@
     },
 
     openModelTree: function() {
-      var docTree = new LMVUI.DocTree();
       var modelSearch = new LMVUI.ModelSearch();
       var modelTree = new LMVUI.ModelTree();
       modelSearch.viewer = modelTree.viewer = this.viewer;
-      this.createPanel("Model Structure", [docTree, modelSearch, modelTree]);
+      this.createPanel("Model Structure", [modelSearch, modelTree]);
     },
 
     openModelProperty: function() {
@@ -93,6 +94,13 @@
       var elem = new LMVUI.AnimationPlayer();
       elem.viewer = this.viewer;
       this.createPanel("Animation", elem);
+    },
+
+    openDocTree: function() {
+      var elem = new LMVUI.DocTree();
+      elem.viewer = this.viewer;
+      elem.viewerElem = this.viewerElem;
+      this.createPanel(this.viewerElem.doc.getRootItem().children[0].name, elem);
     },
 
     detached: function() {

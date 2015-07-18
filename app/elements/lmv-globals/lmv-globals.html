@@ -52,11 +52,11 @@ LMVUI.getViewer = function() {
 // utility function for LMV elements to find viewer, if not specified
 LMVUI._getViewerReference = function(elem) {
   if (!elem.viewer) {
-    console.log(elem.tagName+": No viewer specified, automatically grabbing viewer");
+    console.log("WARNING: "+elem.tagName+": No viewer specified, automatically grabbing viewer");
     elem.viewer = LMVUI.getViewer();
   }
   if (!elem.viewer) {
-    console.log(elem.tagName+": ERROR: Cannot find viewer");
+    console.log("ERROR: "+elem.tagName+": Cannot find viewer");
   }
   return elem.viewer;
 };

@@ -17,9 +17,8 @@
     is: "lmv-doc-tree",
 
     attached: function() {
-      // TODO_NOP: resolve these gets here
-      this.viewerElem = LMVUI.getViewerElem();
-      this.viewer = LMVUI.getViewer();
+      if (!LMVUI._getViewerReference(this)) return;
+      this.viewerElem = this.viewerElem || LMVUI.getViewerElem();
 
       this._onNodeClick = this._onNodeClick.bind(this);
 
@@ -38,7 +37,7 @@
       if (!this.viewerElem.doc)
         return;
       Polymer.dom(this).innerHTML = "";
-      var root = this.viewerElem.doc.getRootItem();
+      var root = this.viewerElem.doc.getRootItem().children[0];
       for (var i=0; i<root.children.length; i++) {
         this._buildTree(root.children[i], this);
       }
