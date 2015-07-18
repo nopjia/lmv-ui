@@ -53,6 +53,9 @@
         this.viewer.select(result.dbId);
         this.hasSelection = true;
       }
+      else {
+        this.hasSelection = !!this.viewer.getSelectionCount();
+      }
       if (this.viewer.impl.visibilityManager.isolatedNodes.length || this.viewer.impl.visibilityManager.hiddenNodes.length)
         this.hasHidden = true;
     },
