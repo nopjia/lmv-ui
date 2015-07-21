@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="lmv-property-view">
-  <link rel="import" type="css" href="lmv-property-view.css">
+<dom-module id="lmv-model-property">
+  <link rel="import" type="css" href="lmv-model-property.css">
 
   <template>
 
@@ -23,8 +23,8 @@
 
 <script>
 (function() {
-  LMVUI.PropertyView = Polymer({
-    is: "lmv-property-view",
+  LMVUI.ModelProperty = Polymer({
+    is: "lmv-model-property",
 
     attached: function() {
       if (!LMVUI._getViewerReference(this))

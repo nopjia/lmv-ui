@@ -79,7 +79,7 @@
     },
 
     openModelProperty: function() {
-      var elem = new LMVUI.PropertyView();
+      var elem = new LMVUI.ModelProperty();
       elem.viewer = this.viewer;
       this.createPanel("Model Property", elem);
     },
