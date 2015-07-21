@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-collab-view">
+  <link rel="import" type="css" href="lmv-collab-view.css">
+
+  <template>
+    <div hidden$="{{connected}}">
+      <form id="join" on-submit="_onStart">
+        <input id="username" placeholder="Enter your name">
+        <lmv-button on-click="_onStart">Start</lmv-button>
+      </form>
+    </div>
+    <div hidden$="{{!connected}}">
+      <div id="users">
+        <div class="user">Nancy Jeng</div>
+        <div class="user">Terry Stevens</div>
+        <div class="user">Peter Myers</div>
+      </div>
+      <div id="chats">
+        <span class="user-msg">Nancy Jeng</span>Hey folks!<br>
+        This model looks great!<br>
+        <span class="user-msg">Terry Stevens</span>Yea...<br>
+        It doesn't suck completely<br>
+        <span class="user-msg">Peter Myers</span>No, stop, please<br>
+        Let's see what Fusion does<br>
+      </div>
+      <form id="chatform" on-submit="_onChatSubmit">
+        <input id="chatbox">
+      </form>
+    </div>
+  </template>
+</dom-module>
+
+<script src="http://autodeskviewer.com/viewers/latest/socket.io-1.3.5.js"></script>
+<script src="lmv-collab-view.js"></script>

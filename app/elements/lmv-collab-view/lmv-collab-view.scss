@@ -1,0 +1,68 @@
+@import "../elements";
+
+:host {
+  color: $color-1;
+  line-height: 125%;
+}
+
+input {
+  @include input-format();
+}
+
+#join {
+  display: flex;
+
+  #username {
+    flex-grow: 1;
+    height: 100%;
+  }
+}
+
+#users {
+  border-bottom: 1px solid $color-1;
+  padding-bottom: .6em;
+}
+
+.user {
+  &:before {
+    width: 1.2em;
+    display: inline-block;
+    text-align: center;
+    color: lime;
+    content: "●";
+  }
+
+  &.active {
+    color: lime;
+    &:before {
+      content: "★";
+    }
+  }
+}
+
+#chats {
+  padding: .6em 0;
+
+  span.user-msg {
+    color: $color-1-dim;
+    font-weight: bold;
+    margin-right: 0.5em;
+    margin-top: 0.5em;
+    display: inline-block;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:after {
+      content: ":";
+    }
+  }
+}
+
+#chatform {
+  display: flex;
+  #chatbox {
+    flex-grow: 1;
+  }
+}

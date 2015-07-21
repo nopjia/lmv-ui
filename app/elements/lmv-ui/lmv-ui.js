@@ -103,6 +103,13 @@
       this.createPanel(this.viewerElem.doc.getRootItem().children[0].name, elem);
     },
 
+    openLiveReview: function() {
+      var elem = new LMVUI.CollabView();
+      elem.viewer = this.viewer;
+      elem.viewerElem = this.viewerElem;
+      this.createPanel("Live Review", elem);
+    },
+
     detached: function() {
       LMVUI._cleanupViewerListeners(this);
     },
