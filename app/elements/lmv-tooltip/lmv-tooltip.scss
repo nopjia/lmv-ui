@@ -1,0 +1,13 @@
+@import "../elements";
+
+:host {
+  color: $color-1;
+  background-color: $color-bg;
+
+  white-space: nowrap;
+
+  padding: .4em;
+
+  position: absolute;
+  bottom: calc(100% + .4em);
+}

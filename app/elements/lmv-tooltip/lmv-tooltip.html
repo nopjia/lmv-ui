@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-tooltip">
+  <link rel="import" type="css" href="lmv-tooltip.css">
+
+  <template>
+    <content></content>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.Tooltip = Polymer({
+    is: "lmv-tooltip",
+
+    attached: function() {
+      if (!this.target)
+        this.target = this.parentElement;
+
+      this.hidden = true;
+
+      this._onEnter = this._onEnter.bind(this);
+      this._onLeave = this._onLeave.bind(this);
+
+      this.target.addEventListener("mouseenter", this._onEnter);
+      this.target.addEventListener("mouseleave", this._onLeave);
+    },
+
+    detached: function() {
+      this.target.removeEventListener("mouseenter", this._onEnter);
+      this.target.removeEventListener("mouseleave", this._onLeave);
+    },
+
+    _onEnter: function() {
+      this.hidden = false;
+    },
+
+    _onLeave: function() {
+      this.hidden = true;
+    },
+
+  });
+})();
+</script>
