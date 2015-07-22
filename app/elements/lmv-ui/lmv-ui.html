@@ -36,14 +36,14 @@
     </lmv-panel>
 
     <div class="toolbar-wrap">
-      <div class="toolbar">
-        <lmv-button on-click="openDocTree" hidden$="{{!hasDocument}}"><iron-icon icon="folder"></iron-icon></lmv-button>
-        <lmv-button on-click="openAnimationPlayer" hidden$="{{!hasAnimation}}"><iron-icon icon="av:play-circle-filled"></iron-icon></lmv-button>
-        <lmv-button on-click="openModelTree"><iron-icon icon="list"></iron-icon></lmv-button>
-        <lmv-button on-click="openModelProperty"><iron-icon icon="sort"></iron-icon></lmv-button>
-        <lmv-button on-click="openLiveReview"><iron-icon icon="supervisor-account"></iron-icon></lmv-button>
-        <lmv-button on-click="openRenderSettings"><iron-icon icon="settings"></iron-icon></lmv-button>
-        <lmv-button on-click="openRenderStats"><iron-icon icon="assessment"></iron-icon></lmv-button>
+      <div id="toolbar">
+        <lmv-button toggle on-active-change="togglePanel" panel="DocTree" hidden$="{{!hasDocument}}"><iron-icon icon="folder"></iron-icon></lmv-button>
+        <lmv-button toggle on-active-change="togglePanel" panel="AnimationPlayer" hidden$="{{!hasAnimation}}"><iron-icon icon="av:play-circle-filled"></iron-icon></lmv-button>
+        <lmv-button toggle on-active-change="togglePanel" panel="ModelTree"><iron-icon icon="list"></iron-icon></lmv-button>
+        <lmv-button toggle on-active-change="togglePanel" panel="ModelProperty"><iron-icon icon="sort"></iron-icon></lmv-button>
+        <lmv-button toggle on-active-change="togglePanel" panel="LiveReview"><iron-icon icon="supervisor-account"></iron-icon></lmv-button>
+        <lmv-button toggle on-active-change="togglePanel" panel="RenderSettings"><iron-icon icon="settings"></iron-icon></lmv-button>
+        <lmv-button toggle on-active-change="togglePanel" panel="RenderStats"><iron-icon icon="assessment"></iron-icon></lmv-button>
       </div>
     </div>
 

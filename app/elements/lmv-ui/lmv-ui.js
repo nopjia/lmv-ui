@@ -2,9 +2,6 @@
   Polymer({
     is: "lmv-ui",
 
-
-    // ready
-
     attached: function() {
       if (!LMVUI._getViewerReference(this)) return;
       this.viewerElem = this.viewerElem || LMVUI.getViewerElem();
@@ -67,49 +64,77 @@
       return panel;
     },
 
-    openRenderStats: function() {
+    createRenderStats: function() {
       var elem = new LMVUI.Table(this.renderStats);
       elem.right = true;
-      this.createPanel("Render Stats", elem);
+      return this.createPanel("Render Stats", elem);
     },
 
-    openModelTree: function() {
+    createModelTree: function() {
       var modelSearch = new LMVUI.ModelSearch();
       var modelTree = new LMVUI.ModelTree();
       modelSearch.viewer = modelTree.viewer = this.viewer;
-      this.createPanel("Model Structure", [modelSearch, modelTree]);
+      return this.createPanel("Model Structure", [modelSearch, modelTree]);
     },
 
-    openModelProperty: function() {
+    createModelProperty: function() {
       var elem = new LMVUI.ModelProperty();
       elem.viewer = this.viewer;
-      this.createPanel("Model Property", elem);
+      return this.createPanel("Model Property", elem);
     },
 
-    openRenderSettings: function() {
+    createRenderSettings: function() {
       var elem = new LMVUI.RenderSettings();
       elem.viewer = this.viewer;
-      this.createPanel("Render Settings", elem);
+      return this.createPanel("Render Settings", elem);
     },
 
-    openAnimationPlayer: function() {
+    createAnimationPlayer: function() {
       var elem = new LMVUI.AnimationPlayer();
       elem.viewer = this.viewer;
-      this.createPanel("Animation", elem);
+      return this.createPanel("Animation", elem);
     },
 
-    openDocTree: function() {
+    createDocTree: function() {
       var elem = new LMVUI.DocTree();
       elem.viewer = this.viewer;
       elem.viewerElem = this.viewerElem;
-      this.createPanel(this.viewerElem.doc.getRootItem().children[0].name, elem);
+      return this.createPanel(this.viewerElem.doc.getRootItem().children[0].name, elem);
     },
 
-    openLiveReview: function() {
+    createLiveReview: function() {
       var elem = new LMVUI.CollabView();
       elem.viewer = this.viewer;
       elem.viewerElem = this.viewerElem;
-      this.createPanel("Live Review", elem);
+      return this.createPanel("Live Review", elem);
+    },
+
+    togglePanel: function(e) {
+      var button = e.currentTarget;
+      var name = button.getAttribute("panel");
+
+      if (!this._openedPanels)
+        this._openedPanels = {};
+
+      var panels = this._openedPanels;
+
+      if (!e.detail.active) {
+        if (panels[name])
+          panels[name].hidden = true;
+      }
+      else {
+        if (panels[name]) {
+          panels[name].hidden = false;
+        }
+        else {
+          // NOTE_NOP: if click 'x', will actually close (remove) the panel
+          var panel = panels[name] = this["create"+name]();
+          panel.addEventListener("close", function() {
+            panels[name] = undefined;
+            button.active = false;
+          });
+        }
+      }
     },
 
     detached: function() {

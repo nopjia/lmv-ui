@@ -50,10 +50,17 @@
 
     toggleCollapse: function() {
       this.collapse = !this.collapse;
+      this.fire("collapse", { collapse: this.collapse });
     },
 
     close: function() {
       Polymer.dom(this.parentNode).removeChild(this);
+      this.fire("close");
+    },
+
+    reset: function() {
+      this.removeAttribute("style");
+      this.$.content.removeAttribute("style");
     },
 
     _onDrag: function(e) {
