@@ -63,6 +63,8 @@
       }
 
       Polymer.dom(this.root).appendChild(panel);
+
+      return panel;
     },
 
     openRenderStats: function() {
