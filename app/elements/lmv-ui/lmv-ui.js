@@ -127,12 +127,11 @@
           panels[name].hidden = false;
         }
         else {
-          // NOTE_NOP: if click 'x', will actually close (remove) the panel
           var panel = panels[name] = this["create"+name]();
-          panel.addEventListener("close", function() {
-            panels[name] = undefined;
+          panel.close = function() {
+            this.hidden = true;
             button.active = false;
-          });
+          };
         }
       }
     },
