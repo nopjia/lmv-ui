@@ -111,7 +111,7 @@
 
     togglePanel: function(e) {
       var button = e.currentTarget;
-      var name = button.getAttribute("panel");
+      var name = button.getAttribute("cmd");
 
       if (!this._openedPanels)
         this._openedPanels = {};
@@ -134,6 +134,23 @@
           };
         }
       }
+    },
+
+    // hackiest code i've ever written
+    toggleTool: function(e) {
+      var tools = {};
+
+      if (e.detail.active) {
+        var button = e.currentTarget;
+        var name = button.getAttribute("cmd");
+        tools[name] = button;
+
+        var keys = Object.keys(this._toolarea);
+        if (keys.length)
+          this._toolarea[keys[0]].active = false;
+      }
+
+      this._toolarea = tools;
     },
 
     _onExplode: function(e) {

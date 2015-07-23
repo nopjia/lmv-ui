@@ -13,18 +13,25 @@
     </div>
 
     <div class="toolbar-wrap">
-
+      <div class="toolarea">
+        <lmv-animation-player viewer="{{viewer}}" hidden$="{{!_toolarea.animation}}"></lmv-animation-player>
+        <div hidden$="{{!_toolarea.explode}}">
+          <div style="display: flex">
+            <lmv-input-range on-value-change="_onExplode" style="flex-grow: 1"></lmv-input-range>
+          </div>
+        </div>
+      </div>
 
       <div id="toolbar">
-        <lmv-button toggle on-active-change="togglePanel" panel="AnimationPlayer" hidden$="{{!hasAnimation}}">
+        <lmv-button toggle on-active-change="toggleTool" cmd="animation" hidden$="{{!hasAnimation}}">
           <lmv-tooltip>Animation</lmv-tooltip>
           <iron-icon icon="av:play-circle-filled"></iron-icon>
         </lmv-button>
-        <lmv-button toggle on-active-change="togglePanel" panel="ModelTree">
+        <lmv-button toggle on-active-change="togglePanel" cmd="ModelTree">
           <lmv-tooltip>Model Tree</lmv-tooltip>
           <iron-icon icon="list"></iron-icon>
         </lmv-button>
-        <lmv-button toggle on-active-change="togglePanel" panel="ModelProperty">
+        <lmv-button toggle on-active-change="togglePanel" cmd="ModelProperty">
           <lmv-tooltip>Model Property</lmv-tooltip>
           <iron-icon icon="sort"></iron-icon>
         </lmv-button>
@@ -32,7 +39,7 @@
           <lmv-tooltip class="btn-content">Tools</lmv-tooltip>
           <iron-icon class="btn-content" icon="build"></iron-icon>
           <div class="menu">
-            <lmv-button><iron-icon icon="apps"></iron-icon>Explode</lmv-button>
+            <lmv-button toggle on-active-change="toggleTool" cmd="explode"><iron-icon icon="apps"></iron-icon>Explode</lmv-button>
             <lmv-button><iron-icon icon="flip-to-back"></iron-icon>Section</lmv-button>
             <lmv-button><iron-icon icon="swap-horiz"></iron-icon>Measure</lmv-button>
           </div>
@@ -41,16 +48,16 @@
           <lmv-tooltip class="btn-content">Share</lmv-tooltip>
           <iron-icon class="btn-content" icon="social:share"></iron-icon>
           <div class="menu">
-            <lmv-button toggle on-active-change="togglePanel" panel="LiveReview"><iron-icon icon="social:people"></iron-icon>Live Review</lmv-button>
+            <lmv-button toggle on-active-change="togglePanel" cmd="LiveReview"><iron-icon icon="social:people"></iron-icon>Live Review</lmv-button>
             <lmv-button><iron-icon icon="settings-remote"></iron-icon>Remote Control</lmv-button>
             <lmv-button><iron-icon icon="link"></iron-icon>Share Link</lmv-button>
           </div>
         </lmv-button-group>
-        <lmv-button toggle on-active-change="togglePanel" panel="RenderSettings">
+        <lmv-button toggle on-active-change="togglePanel" cmd="RenderSettings">
           <lmv-tooltip>Settings</lmv-tooltip>
           <iron-icon icon="settings"></iron-icon>
         </lmv-button>
-<!--         <lmv-button toggle on-active-change="togglePanel" panel="RenderStats">
+<!--         <lmv-button toggle on-active-change="togglePanel" cmd="RenderStats">
           <lmv-tooltip>Render Stats</lmv-tooltip>
           <iron-icon icon="assessment"></iron-icon>
         </lmv-button> -->

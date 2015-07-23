@@ -49,7 +49,17 @@
     }
   }
 
+  .toolarea {
+    margin: auto;
+    margin-bottom: 1rem;
+    width: 320px;
+    pointer-events: auto;
 
+    > * {
+      background-color: $color-bg;
+      padding: .6em;
+    }
+  }
 }
 
 lmv-panel {
