@@ -7,7 +7,7 @@
       this.viewerElem = this.viewerElem || LMVUI.getViewerElem();
 
       this.hasAnimation = false;
-      this.hasDoc = false;
+      this.docName = "";
 
       var self = this;
 
@@ -30,7 +30,8 @@
       // property db loaded
       LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
         self.hasAnimation = self.viewer.impl.model.myData.animations;
-        self.hasDoc = !!self.viewerElem.doc;
+        if (self.viewerElem.doc)
+          self.docName = self.viewerElem.doc.getRootItem().children[0].name;
       });
 
       // geometry complete
@@ -59,7 +60,7 @@
         Polymer.dom(panel).appendChild(elems);
       }
 
-      Polymer.dom(this.root).appendChild(panel);
+      Polymer.dom(this.$["panels-wrap"]).appendChild(panel);
 
       return panel;
     },
@@ -71,10 +72,9 @@
     },
 
     createModelTree: function() {
-      var modelSearch = new LMVUI.ModelSearch();
       var modelTree = new LMVUI.ModelTree();
-      modelSearch.viewer = modelTree.viewer = this.viewer;
-      return this.createPanel("Model Structure", [modelSearch, modelTree]);
+      modelTree.viewer = this.viewer;
+      return this.createPanel("Model Structure", modelTree);
     },
 
     createModelProperty: function() {
@@ -93,13 +93,6 @@
       var elem = new LMVUI.AnimationPlayer();
       elem.viewer = this.viewer;
       return this.createPanel("Animation", elem);
-    },
-
-    createDocTree: function() {
-      var elem = new LMVUI.DocTree();
-      elem.viewer = this.viewer;
-      elem.viewerElem = this.viewerElem;
-      return this.createPanel(this.viewerElem.doc.getRootItem().children[0].name, elem);
     },
 
     createLiveReview: function() {

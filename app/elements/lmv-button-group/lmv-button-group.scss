@@ -3,11 +3,22 @@
 :host {
 }
 
-::content .menu {
+#menu {
   position: absolute;
   bottom: 100%;
+  z-index: 1;
+}
+
+::content .menu {
   display: flex;
   flex-direction: column;
 
   white-space: nowrap;
+
+  background-color: $color-bg;
+}
+
+#button {
+  border: inherit;
+  border-radius: inherit;
 }

@@ -9,12 +9,12 @@
   <template>
     <div id="header" on-track="_onDrag">
       <span class="header">{{header}}</span>
-      <iron-icon class="icon" icon="expand-more" on-click="toggleCollapse"></iron-icon>
-      <iron-icon class="icon" icon="close" on-click="close"></iron-icon>
+      <iron-icon class="icon" hidden$="[[noCollapse]]" icon="expand-less" on-click="toggleCollapse"></iron-icon>
+      <iron-icon class="icon" hidden$="[[noClose]]" icon="close" on-click="close"></iron-icon>
     </div>
     <div id="content" hidden$="[[collapse]]">
       <content></content>
-      <div id="resizer" on-track="_onResizeDrag"></div>
+      <div id="resizer" hidden$="[[noResize]]" on-track="_onResizeDrag"></div>
     </div>
   </template>
 
@@ -42,6 +42,22 @@
         value: false,
         reflectToAttribute: true,
       },
+      noCollapse: {
+        type: Boolean,
+        value: false
+      },
+      noClose: {
+        type: Boolean,
+        value: false
+      },
+      noDrag: {
+        type: Boolean,
+        value: false
+      },
+      noResize: {
+        type: Boolean,
+        value: false
+      },
     },
 
     factoryImpl: function(header) {
@@ -64,6 +80,9 @@
     },
 
     _onDrag: function(e) {
+      if (this.noDrag)
+        return;
+
       switch(e.detail.state) {
         case "start":
           var rect = this.getBoundingClientRect();

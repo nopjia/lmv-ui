@@ -1,5 +1,10 @@
 @import "../elements";
 
+$border-radius: 10px;
+@mixin box-shadow() {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
 :host {
   display: block;
   width: 600px;
@@ -39,13 +44,24 @@
 
     > lmv-button, > lmv-button-group::shadow lmv-button {
       font-size: 1.5rem;
-      // border-radius: 50%;
-      // margin: 0 .2rem;
+      margin: 0 .2rem;
     }
+    > lmv-button-group .menu {
+      overflow: hidden; // mask round corners
+      margin-bottom: .4rem;
 
-    > lmv-button-group .menu iron-icon {
-      font-size: 1.5rem;
-      padding-right: .6rem;
+      lmv-button {
+        background-color: transparent;
+
+        &:hover {
+          background-color: $color-bg-hover;
+        }
+      }
+
+      iron-icon {
+        font-size: 1.5rem;
+        padding-right: .6rem;
+      }
     }
   }
 
@@ -62,7 +78,46 @@
   }
 }
 
-lmv-panel {
+.topbar-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1rem;
+
+  padding: 0 1rem;
+
+  pointer-events: none;
+
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  lmv-button {
+    font-size: 1.5rem;
+  }
+
+  #search {
+    display: flex;
+    overflow: hidden;
+    z-index: 1;
+
+    > lmv-model-search {
+      background-color: $color-bg;
+      padding: .7rem;
+
+      // rounded corners overlap
+      padding-right: 1.7rem;
+      margin-right: -1.0rem;
+    }
+  }
+}
+
+#panels-wrap lmv-panel {
   position: absolute;
   top: 10%;
   right: 10%;
@@ -75,5 +130,26 @@ lmv-progress-bar {
   position: absolute;
   bottom: 0;
   width: 100%;
+  background-color: transparent;
+}
+
+// rounded and shadow styling
+lmv-panel,
+#toolbar > lmv-button,
+#toolbar > lmv-button-group::shadow lmv-button,
+#toolbar > lmv-button-group .menu,
+#search,
+lmv-model-context-menu::shadow lmv-context-menu,
+.toolarea > *
+{
+  border-radius: $border-radius;
+  @include box-shadow();
+}
+lmv-panel::shadow #header,
+#search > lmv-button {
+  border-radius: $border-radius;
+}
+lmv-model-context-menu::shadow lmv-context-menu {
+  overflow: hidden;
   background-color: transparent;
 }

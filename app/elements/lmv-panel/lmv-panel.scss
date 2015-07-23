@@ -17,7 +17,6 @@
 
 #header {
   font-size: 1.4rem;
-  cursor: move;
   user-select: none;
 
   background-color: $color-bg;
@@ -28,6 +27,7 @@
 
   .header {
     flex-grow: 1;
+    margin-right: .6rem;
   }
 
   .icon {
@@ -35,6 +35,10 @@
 
     transition: transform $anim-duration;
   }
+}
+
+:host(:not([no-drag])) #header {
+  cursor: move;
 }
 
 #content {

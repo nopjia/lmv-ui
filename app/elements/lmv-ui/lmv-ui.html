@@ -12,6 +12,22 @@
       <lmv-model-context-menu viewer="[[viewer]]"></lmv-model-context-menu>
     </div>
 
+    <div id="panels-wrap"></div>
+
+    <div class="topbar-wrap">
+      <div id="search">
+        <lmv-model-search viewer="{{viewer}}" hidden$="{{!_showSearch}}"></lmv-model-search>
+        <lmv-button toggle active="{{_showSearch}}">
+          <iron-icon icon="search"></iron-icon>
+        </lmv-button>
+      </div>
+      <template is="dom-if" if="{{docName}}">
+        <lmv-panel header="{{docName}}" collapse no-close no-drag no-resize>
+          <lmv-doc-tree viewer="{{viewer}}" viewer-elem="{{viewerElem}}"></lmv-doc-tree>
+        </lmv-panel>
+      </template>
+    </div>
+
     <div class="toolbar-wrap">
       <div class="toolarea">
         <lmv-animation-player viewer="{{viewer}}" hidden$="{{!_toolarea.animation}}"></lmv-animation-player>
@@ -50,7 +66,6 @@
           <div class="menu">
             <lmv-button toggle on-active-change="togglePanel" cmd="LiveReview"><iron-icon icon="social:people"></iron-icon>Live Review</lmv-button>
             <lmv-button><iron-icon icon="settings-remote"></iron-icon>Remote Control</lmv-button>
-            <lmv-button><iron-icon icon="link"></iron-icon>Share Link</lmv-button>
           </div>
         </lmv-button-group>
         <lmv-button toggle on-active-change="togglePanel" cmd="RenderSettings">

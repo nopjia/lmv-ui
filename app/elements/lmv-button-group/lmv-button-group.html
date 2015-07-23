@@ -4,10 +4,10 @@
   <link rel="import" type="css" href="lmv-button-group.css">
 
   <template>
-    <lmv-button toggle active="{{expanded}}">
+    <lmv-button id="button" toggle active="{{expanded}}">
       <content select=".btn-content"></content>
     </lmv-button>
-    <div hidden$="{{!expanded}}">
+    <div id="menu" hidden$="{{!expanded}}">
       <content select=".menu"></content>
     </div>
   </template>
