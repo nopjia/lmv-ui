@@ -44,12 +44,11 @@
 
     setModelProperties: function(nodeId) {
       if (!nodeId) {
-        if (this.viewer.model.myData.instanceTree) {
+        if (this.viewer.model.getRoot()) {
           nodeId = this.viewer.model.getRootId();
         }
         else {
           console.log("ERROR: no model instanceTree");
-          this.setProperties();
           return;
         }
       }

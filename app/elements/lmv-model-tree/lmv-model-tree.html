@@ -86,6 +86,11 @@
       this.allNodes = {};
 
       var root = this.viewer.model.getRoot();
+      if (!root) {
+        console.log("ERROR: no model instanceTree");
+        return;
+      }
+
       // go down to deepest single child
       // to get rid of single roots in model tree
       while (root.children.length === 1) {

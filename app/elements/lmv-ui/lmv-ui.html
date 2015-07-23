@@ -15,7 +15,7 @@
     <div id="panels-wrap"></div>
 
     <div class="topbar-wrap">
-      <div id="search">
+      <div id="search" hidden$="{{!hasModelRoot}}">
         <lmv-model-search viewer="{{viewer}}" hidden$="{{!_showSearch}}"></lmv-model-search>
         <lmv-button toggle active="{{_showSearch}}">
           <iron-icon icon="search"></iron-icon>
@@ -43,11 +43,11 @@
           <lmv-tooltip>Animation</lmv-tooltip>
           <iron-icon icon="av:play-circle-filled"></iron-icon>
         </lmv-button>
-        <lmv-button toggle on-active-change="togglePanel" cmd="ModelTree">
+        <lmv-button toggle on-active-change="togglePanel" cmd="ModelTree" hidden$="{{!hasModelRoot}}">
           <lmv-tooltip>Model Tree</lmv-tooltip>
           <iron-icon icon="list"></iron-icon>
         </lmv-button>
-        <lmv-button toggle on-active-change="togglePanel" cmd="ModelProperty">
+        <lmv-button toggle on-active-change="togglePanel" cmd="ModelProperty" hidden$="{{!hasModelRoot}}">
           <lmv-tooltip>Model Property</lmv-tooltip>
           <iron-icon icon="sort"></iron-icon>
         </lmv-button>

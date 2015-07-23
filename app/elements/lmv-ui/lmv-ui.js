@@ -7,6 +7,7 @@
       this.viewerElem = this.viewerElem || LMVUI.getViewerElem();
 
       this.hasAnimation = false;
+      this.hasModelRoot = false;
       this.docName = "";
 
       var self = this;
@@ -29,7 +30,8 @@
 
       // property db loaded
       LMVUI._addViewerListener(this, Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function() {
-        self.hasAnimation = self.viewer.impl.model.myData.animations;
+        self.hasAnimation = !!self.viewer.impl.model.myData.animations;
+        self.hasModelRoot = !!self.viewer.model.getRoot();
         if (self.viewerElem.doc)
           self.docName = self.viewerElem.doc.getRootItem().children[0].name;
       });
