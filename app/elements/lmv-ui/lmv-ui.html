@@ -12,35 +12,10 @@
       <lmv-model-context-menu viewer="[[viewer]]"></lmv-model-context-menu>
     </div>
 
-    <lmv-panel header="My Panel">
-      <p>Hello,</p>
-      <p>This is a panel where you can put any HTML Elements.</p>
-      <p>Try it out yourself!</p>
-      <lmv-button>
-        <iron-icon icon="favorite"></iron-icon>&nbsp;button!
-      </lmv-button>
-      <br>
-      <lmv-input-boolean value="{{boolVal}}"></lmv-input-boolean>
-      <span>{{boolVal}}</span>
-      <br>
-      <lmv-input-range value="{{rangeVal}}"></lmv-input-range>
-      <span>{{rangeVal}}</span>
-      <br>
-      <lmv-input-option value="{{optionVal}}">
-        <option value="A">Ant</option>
-        <option value="B">Bird</option>
-        <option value="C">Cat</option>
-        <option value="D">Dog</option>
-      </lmv-input-option>
-      <span>{{optionVal}}</span>
-    </lmv-panel>
-
     <div class="toolbar-wrap">
+
+
       <div id="toolbar">
-        <lmv-button toggle on-active-change="togglePanel" panel="DocTree" hidden$="{{!hasDocument}}">
-          <lmv-tooltip><iron-icon icon="folder"></iron-icon> Folder</lmv-tooltip>
-          <iron-icon icon="folder"></iron-icon>
-        </lmv-button>
         <lmv-button toggle on-active-change="togglePanel" panel="AnimationPlayer" hidden$="{{!hasAnimation}}">
           <lmv-tooltip>Animation</lmv-tooltip>
           <iron-icon icon="av:play-circle-filled"></iron-icon>
@@ -53,18 +28,32 @@
           <lmv-tooltip>Model Property</lmv-tooltip>
           <iron-icon icon="sort"></iron-icon>
         </lmv-button>
-        <lmv-button toggle on-active-change="togglePanel" panel="LiveReview">
-          <lmv-tooltip>Live Review</lmv-tooltip>
-          <iron-icon icon="supervisor-account"></iron-icon>
-        </lmv-button>
+        <lmv-button-group>
+          <lmv-tooltip class="btn-content">Tools</lmv-tooltip>
+          <iron-icon class="btn-content" icon="build"></iron-icon>
+          <div class="menu">
+            <lmv-button><iron-icon icon="apps"></iron-icon>Explode</lmv-button>
+            <lmv-button><iron-icon icon="flip-to-back"></iron-icon>Section</lmv-button>
+            <lmv-button><iron-icon icon="swap-horiz"></iron-icon>Measure</lmv-button>
+          </div>
+        </lmv-button-group>
+        <lmv-button-group>
+          <lmv-tooltip class="btn-content">Share</lmv-tooltip>
+          <iron-icon class="btn-content" icon="social:share"></iron-icon>
+          <div class="menu">
+            <lmv-button toggle on-active-change="togglePanel" panel="LiveReview"><iron-icon icon="social:people"></iron-icon>Live Review</lmv-button>
+            <lmv-button><iron-icon icon="settings-remote"></iron-icon>Remote Control</lmv-button>
+            <lmv-button><iron-icon icon="link"></iron-icon>Share Link</lmv-button>
+          </div>
+        </lmv-button-group>
         <lmv-button toggle on-active-change="togglePanel" panel="RenderSettings">
           <lmv-tooltip>Settings</lmv-tooltip>
           <iron-icon icon="settings"></iron-icon>
         </lmv-button>
-        <lmv-button toggle on-active-change="togglePanel" panel="RenderStats">
+<!--         <lmv-button toggle on-active-change="togglePanel" panel="RenderStats">
           <lmv-tooltip>Render Stats</lmv-tooltip>
           <iron-icon icon="assessment"></iron-icon>
-        </lmv-button>
+        </lmv-button> -->
       </div>
     </div>
 

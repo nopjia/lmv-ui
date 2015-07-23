@@ -22,24 +22,34 @@
   position: absolute;
   width: 100%;
   bottom: 1rem;
+
   display: flex;
+  flex-direction: column;
+
   pointer-events: none;
 
   #toolbar {
     margin: auto;
-    font-size: 1.5rem;
     display: flex;
     pointer-events: auto;
 
-    lmv-button {
-      // border-radius: 50%;
-      // margin: 0 .2em;
+    lmv-tooltip {
+      font-size: .8rem;
+    }
 
-      lmv-tooltip {
-        font-size: .5em;
-      }
+    > lmv-button, > lmv-button-group::shadow lmv-button {
+      font-size: 1.5rem;
+      // border-radius: 50%;
+      // margin: 0 .2rem;
+    }
+
+    > lmv-button-group .menu iron-icon {
+      font-size: 1.5rem;
+      padding-right: .6rem;
     }
   }
+
+
 }
 
 lmv-panel {

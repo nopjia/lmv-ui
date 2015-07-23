@@ -1,0 +1,13 @@
+@import "../elements";
+
+:host {
+}
+
+::content .menu {
+  position: absolute;
+  bottom: 100%;
+  display: flex;
+  flex-direction: column;
+
+  white-space: nowrap;
+}

@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-button-group">
+  <link rel="import" type="css" href="lmv-button-group.css">
+
+  <template>
+    <lmv-button toggle active="{{expanded}}">
+      <content select=".btn-content"></content>
+    </lmv-button>
+    <div hidden$="{{!expanded}}">
+      <content select=".menu"></content>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  LMVUI.ButtonGroup = Polymer({
+    is: "lmv-button-group",
+
+    properties: {
+      expanded: {
+        type: Boolean,
+        value: false,
+        observer: "_expandedChange",
+      }
+    },
+
+    attached: function() {
+      this._onClickOff = this._onClickOff.bind(this);
+    },
+
+    _onClickOff: function() {
+      // NOTE_NOP: super hack
+      // fix the case of clicking button again to close
+      // delay click off close so that toggle expanded will fire first
+      var self = this;
+      setTimeout(function() {
+        self.expanded = false;
+      }, 0);
+    },
+
+    _expandedChange: function() {
+      if (this.expanded) {
+        window.addEventListener("click", this._onClickOff, true);
+      }
+      else {
+        window.removeEventListener("click", this._onClickOff, true);
+      }
+    },
+
+  });
+})();
+</script>

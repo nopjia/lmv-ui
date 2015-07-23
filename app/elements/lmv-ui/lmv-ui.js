@@ -136,6 +136,10 @@
       }
     },
 
+    _onExplode: function(e) {
+      if (this.viewer) this.viewer.explode(e.detail.value);
+    },
+
     detached: function() {
       LMVUI._cleanupViewerListeners(this);
     },
