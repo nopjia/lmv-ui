@@ -4,7 +4,6 @@
 
     properties: {
       env: { type:String, observer:"_envChanged" },
-      explode: { type:Number, observer:"_explodeChanged" },
       fov: { type:Number, observer:"_fovChanged" },
       ortho: { type:Boolean, observer:"_orthoChanged" },
       aa: { type:Boolean, observer:"_aaChanged" },
@@ -46,7 +45,6 @@
       this.exposure = this.viewer.impl.renderer().getExposureBias();
       this.ortho = !this.viewer.getCamera().isPerspective;
       this.fov = this.viewer.getFOV();
-      this.explode = 0;
     },
 
     _envChanged: function() {
@@ -81,9 +79,6 @@
         this.viewer.navigation.toOrthographic();
       else
         this.viewer.navigation.toPerspective();
-    },
-    _explodeChanged: function() {
-      if (this.viewer) this.viewer.explode(this.explode);
     },
 
     detached: function() {
