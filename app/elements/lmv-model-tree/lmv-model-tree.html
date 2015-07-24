@@ -91,9 +91,9 @@
         return;
       }
 
-      // go down to deepest single child
+      // go down to deepest single child that still has children
       // to get rid of single roots in model tree
-      while (root.children.length === 1) {
+      while (root.children.length === 1 && root.children[0].children) {
         root = root.children[0];
       }
       var pdom = Polymer.dom(this);
