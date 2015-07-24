@@ -49,7 +49,7 @@
         </lmv-button>
         <lmv-button toggle on-active-change="togglePanel" cmd="ModelProperty" hidden$="{{!hasModelRoot}}">
           <lmv-tooltip>Model Property</lmv-tooltip>
-          <iron-icon icon="sort"></iron-icon>
+          <lmv-icon icon="info"></lmv-icon>
         </lmv-button>
         <lmv-button-group>
           <lmv-tooltip class="btn-content">Tools</lmv-tooltip>
@@ -58,6 +58,7 @@
             <lmv-button toggle on-active-change="toggleTool" cmd="explode"><iron-icon icon="apps"></iron-icon>Explode</lmv-button>
             <lmv-button><iron-icon icon="flip-to-back"></iron-icon>Section</lmv-button>
             <lmv-button><iron-icon icon="swap-horiz"></iron-icon>Measure</lmv-button>
+            <lmv-button on-click="takeScreenshot"><iron-icon icon="social:party-mode"></iron-icon>Screenshot</lmv-button>
           </div>
         </lmv-button-group>
         <lmv-button-group>

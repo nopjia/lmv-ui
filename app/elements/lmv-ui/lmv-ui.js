@@ -152,6 +152,10 @@
       if (this.viewer) this.viewer.explode(e.detail.value);
     },
 
+    takeScreenshot: function() {
+      window.open(this.viewer.getScreenShot());
+    },
+
     detached: function() {
       LMVUI._cleanupViewerListeners(this);
     },

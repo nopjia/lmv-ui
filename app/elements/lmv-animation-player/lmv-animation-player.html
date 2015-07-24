@@ -6,15 +6,15 @@
   <template>
     <lmv-button id="prev-button"
       on-click="prev">
-      <iron-icon icon="av:skip-previous"></iron-icon>
+      <lmv-icon icon="rewind"></lmv-icon>
     </lmv-button>
     <lmv-button id="play-button"
       on-click="play">
-      <iron-icon icon="{{playIcon}}"></iron-icon>
+      <lmv-icon icon="{{playIcon}}"></lmv-icon>
     </lmv-button>
     <lmv-button id="next-button"
       on-click="next">
-      <iron-icon icon="av:skip-next"></iron-icon>
+      <lmv-icon icon="forward"></lmv-icon>
     </lmv-button>
     <lmv-input-range id="timeline"
       value="{{time}}"
@@ -107,7 +107,7 @@
       else
         this.playing = play;
 
-      this.playIcon = this.playing ? "av:pause" : "av:play-arrow";
+      this.playIcon = this.playing ? "pause" : "play";
 
       if (!this.animator)
         return;
