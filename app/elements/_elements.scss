@@ -6,6 +6,7 @@ $color-1-dim: var(--color-1-dim, #999);
 $color-bg: var(--lmv-color-bg, rgba(0, 0, 0, 0.5));
 $color-bg-hover: var(--lmv-color-bg-hover, rgba(0, 0, 0, 1.0));
 $anim-duration: 0.2s;
+$border-radius: 10px;
 
 // style
 
@@ -46,9 +47,9 @@ $anim-duration: 0.2s;
 
   display: inline-block;
   vertical-align: middle;
-  border: 1px solid $color-1;
   color: $color-1;
-  padding: .2em;
+  border: 1px solid $color-1;
+  padding: 2px;
 
   height: 1em;
   box-sizing: content-box;

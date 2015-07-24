@@ -37,7 +37,8 @@
     },
 
     _valueChanged: function(value) {
-      this.$.fill.style.width = (this.value-this.min)/(this.max-this.min)*100 + "%";
+      var amount = (this.value-this.min)/(this.max-this.min);
+      this.$.fill.style.marginLeft = "calc(" + amount*100.0 + "% - .5em)";
       this.fire("value-change", { value: value });
     },
 

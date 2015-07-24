@@ -4,10 +4,28 @@
   color: $color-1;
 }
 
-table {
-  width: 100%;
-}
+.wrapper {
+  display: flex;
+  flex-direction: column;
 
-lmv-input-option, lmv-input-range {
-  width: 150px;
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: .6em 0;
+    border-bottom: 1px solid $color-1-dim;
+
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+      border: none;
+    }
+
+    lmv-input-option, lmv-input-range {
+      width: 40%;
+    }
+  }
 }

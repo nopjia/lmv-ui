@@ -9,6 +9,9 @@
   width: auto;
 
   z-index: 10;
+
+  overflow: hidden;
+  border-radius: $border-radius;
 }
 
 :host([show]) {

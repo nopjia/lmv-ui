@@ -9,6 +9,8 @@
 
   overflow-x: hidden;
   overflow-y: hidden;
+
+  border-radius: $border-radius;
 }
 
 #header, #content {
@@ -18,16 +20,22 @@
 #header {
   font-size: 1.4rem;
   user-select: none;
-
   background-color: $color-bg;
   transition: background-color $anim-duration;
+  border-radius: $border-radius;
 
   flex-shrink: 0;
   display: flex;
 
   .header {
     flex-grow: 1;
-    margin-right: .6rem;
+
+    &:not(:first-child) {
+      margin-left: .4rem;
+    }
+    &:not(:last-child) {
+      margin-right: .4rem;
+    }
   }
 
   .icon {
@@ -60,8 +68,8 @@
 }
 
 :host([collapse]) > {
-  #header .icon {
-    transform: rotate(180deg);
+  #header .icon[icon="expand-more"] {
+    transform: rotate(-90deg);
   }
 }
 

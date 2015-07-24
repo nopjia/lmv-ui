@@ -1,6 +1,5 @@
 @import "../elements";
 
-$border-radius: 10px;
 @mixin box-shadow() {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
@@ -133,23 +132,23 @@ lmv-progress-bar {
   background-color: transparent;
 }
 
+lmv-model-context-menu::shadow lmv-context-menu {
+  background-color: transparent;
+}
+
 // rounded and shadow styling
-lmv-panel,
 #toolbar > lmv-button,
 #toolbar > lmv-button-group::shadow lmv-button,
 #toolbar > lmv-button-group .menu,
 #search,
-lmv-model-context-menu::shadow lmv-context-menu,
 .toolarea > *
 {
   border-radius: $border-radius;
   @include box-shadow();
 }
-lmv-panel::shadow #header,
 #search > lmv-button {
   border-radius: $border-radius;
 }
-lmv-model-context-menu::shadow lmv-context-menu {
-  overflow: hidden;
-  background-color: transparent;
+lmv-panel, lmv-model-context-menu::shadow lmv-context-menu {
+  @include box-shadow();
 }

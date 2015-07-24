@@ -9,12 +9,17 @@
 
   transition: border-color $anim-duration;
 
+  border-radius: 1em;
+
   #fill {
     margin-top: 50%;
     margin-left: 50%;
     width: 0;
     height: 0;
     background-color: $color-1;
+
+    border-radius: 1em;
+
     transition:
       background-color $anim-duration,
       height $anim-duration,

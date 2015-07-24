@@ -8,8 +8,8 @@
   <!-- Local DOM -->
   <template>
     <div id="header" on-track="_onDrag">
+      <iron-icon class="icon" hidden$="[[noCollapse]]" icon="expand-more" on-click="toggleCollapse"></iron-icon>
       <span class="header">{{header}}</span>
-      <iron-icon class="icon" hidden$="[[noCollapse]]" icon="expand-less" on-click="toggleCollapse"></iron-icon>
       <iron-icon class="icon" hidden$="[[noClose]]" icon="close" on-click="close"></iron-icon>
     </div>
     <div id="content" hidden$="[[collapse]]">

@@ -9,10 +9,16 @@
 
   transition: border-color $anim-duration;
 
+  border-radius: 1em;
+
+  padding: 2px calc(2px + .5em);
+
   #fill {
-    width: 0%;
-    height: 100%;
+    width: 1em;
+    height: 1em;
     background-color: $color-1;
+    border-radius: 1em;
+    margin-left: -.5em;
     transition: background-color $anim-duration;
   }
 }
