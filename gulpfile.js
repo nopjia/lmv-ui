@@ -100,7 +100,7 @@ gulp.task("copy", function () {
     .pipe(gulp.dest("dist/elements"));
 
   var vulcanized = gulp.src(["app/elements/elements.html"])
-    .pipe($.rename("elements.vulcanized.html"))
+    .pipe($.rename("elements.min.html"))
     .pipe(gulp.dest("dist/elements"));
 
   return merge(app, bower, elements, vulcanized)
@@ -120,7 +120,7 @@ gulp.task("html", function () {
 
   return gulp.src(["app/**/*.html", "!app/{elements,test}/**/*.html"])
     // Replace path for vulcanized assets
-    .pipe($.if("*.html", $.replace("elements/elements.html", "elements/elements.vulcanized.html")))
+    .pipe($.if("*.html", $.replace("elements/elements.html", "elements/elements.min.html")))
     .pipe(assets)
     // Concatenate And Minify JavaScript
     .pipe($.if("*.js", $.uglify({preserveComments: "some"})))
@@ -144,7 +144,7 @@ gulp.task("html", function () {
 gulp.task("vulcanize", function () {
   var DEST_DIR = "dist/elements";
 
-  return gulp.src("dist/elements/elements.vulcanized.html")
+  return gulp.src("dist/elements/elements.min.html")
     .pipe($.vulcanize({
       dest: DEST_DIR,
       strip: true,
@@ -154,6 +154,11 @@ gulp.task("vulcanize", function () {
     .pipe(gulp.dest(DEST_DIR))
     .pipe($.size({title: "vulcanize"}));
 });
+
+// Clean unnecessary files in build directory
+gulp.task("clean-dist", del.bind(null, [
+  "dist/bower_components"
+]));
 
 // Clean Output Directory
 gulp.task("clean", del.bind(null, [".tmp", "dist"]));
@@ -216,6 +221,7 @@ gulp.task("default", ["clean"], function (cb) {
     "elements",
     ["jshint", "images", "fonts", "html"],
     "vulcanize",
+    "clean-dist",
     cb);
 });
 
