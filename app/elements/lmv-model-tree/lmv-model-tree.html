@@ -20,15 +20,17 @@
 
     allNodes: {},   // cache flat reference to all nodes for fast iteration
 
-    attached: function() {
-      if (!LMVUI._getViewerReference(this))
-        return;
-
+    created: function() {
       // bind callbacks
       this._onNodeClick = this._onNodeClick.bind(this);
       this._onNodeDoubleClick = this._onNodeDoubleClick.bind(this);
       this._onNodeExpand = this._onNodeExpand.bind(this);
       this._createNewNode = this._createNewNode.bind(this);
+    },
+
+    attached: function() {
+      if (!LMVUI._getViewerReference(this))
+        return;
 
       var self = this;
 

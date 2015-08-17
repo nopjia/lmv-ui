@@ -12,6 +12,8 @@
 
   overflow: hidden;
   border-radius: $border-radius;
+
+  flex-direction: column;
 }
 
 :host([show]) {

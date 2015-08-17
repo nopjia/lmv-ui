@@ -56,7 +56,8 @@
       else {
         this.hasSelection = !!this.viewer.getSelectionCount();
       }
-      if (this.viewer.impl.visibilityManager.isolatedNodes.length || this.viewer.impl.visibilityManager.hiddenNodes.length)
+      if (this.viewer.impl.visibilityManager.getIsolatedNodes().length ||
+        this.viewer.impl.visibilityManager.getHiddenNodes().length)
         this.hasHidden = true;
     },
     isolate: function() {

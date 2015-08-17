@@ -18,7 +18,11 @@
       <input is="iron-input" bind-value="{{first}}" on-input="onInput">
       <input value="{{last::input}}" on-input="onInput">
     </div>
-    <div class="content"><content></content></div>
+    <div class="content">
+      <content></content>
+      <content select="p"></content>
+      <content select="img"></content>
+    </div>
   </template>
 
 </dom-module>

@@ -28,7 +28,7 @@
 
     listeners: {
       tap: "handleTap",
-      track: "handleTrack"
+      track: "handleTrack",
     },
 
 
@@ -60,7 +60,7 @@
     // event listeners
 
     handleTap: function(e) {
-      console.log("Tracking "+ "(" + e.detail.x + "," + e.detail.y + ")");
+      console.log("Tap "+ "(" + e.detail.x + "," + e.detail.y + ")");
     },
 
     handleTrack: function(e) {
