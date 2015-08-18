@@ -110,6 +110,12 @@
       return this.createPanel("Live Review", elem);
     },
 
+    createModelSection: function() {
+      var elem = new LMVUI.ModelSection();
+      elem.viewer = this.viewer;
+      return this.createPanel("Model Section", elem);
+    },
+
     togglePanel: function(e) {
       var button = e.currentTarget;
       var name = button.getAttribute("cmd");
