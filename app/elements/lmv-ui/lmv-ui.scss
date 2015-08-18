@@ -41,11 +41,11 @@
       font-size: .8rem;
     }
 
-    > lmv-button, > lmv-button-group::shadow lmv-button {
+    > lmv-button, > lmv-button-menu::shadow lmv-button {
       font-size: 1.5rem;
       margin: 0 .2rem;
     }
-    > lmv-button-group .menu {
+    > lmv-button-menu .menu {
       overflow: hidden; // mask round corners
       margin-bottom: .4rem;
 
@@ -138,8 +138,8 @@ lmv-model-context-menu::shadow lmv-context-menu {
 
 // rounded and shadow styling
 #toolbar > lmv-button,
-#toolbar > lmv-button-group::shadow lmv-button,
-#toolbar > lmv-button-group .menu,
+#toolbar > lmv-button-menu::shadow lmv-button,
+#toolbar > lmv-button-menu .menu,
 #search,
 .toolarea > *
 {

@@ -52,7 +52,7 @@
           <lmv-tooltip>Model Property</lmv-tooltip>
           <lmv-icon icon="info"></lmv-icon>
         </lmv-button>
-        <lmv-button-group>
+        <lmv-button-menu>
           <lmv-tooltip class="btn-content">Tools</lmv-tooltip>
           <iron-icon class="btn-content" icon="build"></iron-icon>
           <div class="menu">
@@ -61,23 +61,26 @@
             <lmv-button><iron-icon icon="swap-horiz"></iron-icon>Measure</lmv-button>
             <lmv-button on-click="takeScreenshot"><iron-icon icon="social:party-mode"></iron-icon>Screenshot</lmv-button>
           </div>
-        </lmv-button-group>
-        <lmv-button-group>
+        </lmv-button-menu>
+        <lmv-button-menu>
           <lmv-tooltip class="btn-content">Share</lmv-tooltip>
           <iron-icon class="btn-content" icon="social:share"></iron-icon>
           <div class="menu">
             <lmv-button toggle on-active-change="togglePanel" cmd="LiveReview"><iron-icon icon="social:people"></iron-icon>Live Review</lmv-button>
             <lmv-button><iron-icon icon="settings-remote"></iron-icon>Remote Control</lmv-button>
           </div>
-        </lmv-button-group>
-        <lmv-button toggle on-active-change="togglePanel" cmd="RenderSettings">
-          <lmv-tooltip>Settings</lmv-tooltip>
-          <iron-icon icon="settings"></iron-icon>
-        </lmv-button>
-<!--         <lmv-button toggle on-active-change="togglePanel" cmd="RenderStats">
-          <lmv-tooltip>Render Stats</lmv-tooltip>
-          <iron-icon icon="assessment"></iron-icon>
-        </lmv-button> -->
+        </lmv-button-menu>
+        <lmv-button-menu>
+          <lmv-tooltip class="btn-content">Settings</lmv-tooltip>
+          <iron-icon class="btn-content" icon="settings"></iron-icon>
+          <div class="menu">
+            <lmv-button toggle on-active-change="togglePanel" cmd="RenderEnvs"><iron-icon icon="cloud"></iron-icon>Environments</lmv-button>
+            <lmv-button toggle on-active-change="togglePanel" cmd="RenderSettings"><iron-icon icon="invert-colors"></iron-icon>Render Settings</lmv-button>
+            <lmv-button toggle on-active-change="togglePanel" cmd="RenderStats"><iron-icon icon="assessment"></iron-icon>Render Stats</lmv-button>
+          </div>
+        </lmv-button-menu>
+
+
       </div>
     </div>
 
