@@ -59,7 +59,7 @@ LMVUI._getViewerReference = function(elem) {
   return elem.viewer;
 };
 
-// utitliy function for LMV elements to handle and cleanup viewer event listeners
+// utility function for LMV elements to handle and cleanup viewer event listeners
 LMVUI._addViewerListener = function(elem, type, func) {
   elem.viewer.addEventListener(type, func);
   if (!elem._viewerListeners)
