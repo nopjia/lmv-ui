@@ -5,5 +5,8 @@
     "iron-elements": "PolymerElements/iron-elements#1.0.0",
     "lmv-viewer": "~0.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "web-component-tester": "*",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0"
+  }
 }

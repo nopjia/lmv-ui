@@ -4,7 +4,8 @@ test/temp
 bower_components
 .tmp
 test/bower_components/
-data
+app/data
+app/test.html
 
 # SublimeText
 *.tmlanguage.cache

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>lmv-button</title>
+
+  <script src="../../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <script src="../../bower_components/web-component-tester/browser.js"></script>
+  <script src="../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+  <link rel="import" href="../../bower_components/polymer/polymer.html">
+  <link rel="import" href="../../bower_components/test-fixture/test-fixture.html">
+
+  <!-- Step 1: import the element to test -->
+  <!-- TODO_NOP: fix this import biz -->
+  <link rel="import" href="../elements/lmv-globals/lmv-globals.html">
+  <link rel="import" href="../elements/lmv-button/lmv-button.html">
+
+</head>
+<body>
+
+  <test-fixture id="basic">
+    <template>
+      <lmv-button>Button</lmv-button>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    suite("lmv-button tests", function() {
+      var button;
+
+      setup(function() {
+        button = fixture("basic");
+      });
+
+      test("Test1", function() {
+        button.active = true;
+        assert.equal(button.hasAttribute("active"), true);
+      });
+
+    });
+  </script>
+
+</body>
+</html>
