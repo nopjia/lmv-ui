@@ -3,7 +3,6 @@
     is: "lmv-render-settings",
 
     properties: {
-      env: { type:String, observer:"_envChanged" },
       fov: { type:Number, observer:"_fovChanged" },
       ortho: { type:Boolean, observer:"_orthoChanged" },
       aa: { type:Boolean, observer:"_aaChanged" },
@@ -31,26 +30,11 @@
       this.shadows = this.viewer.prefs.groundShadow;
       this.reflections = this.viewer.prefs.groundReflection;
       this.cel = this.viewer.prefs.celShaded;
-
-      var avp = Autodesk.Viewing.Private;
-      this.envlist = [];
-      for (var i=0; i<avp.LightPresets.length; i++) {
-        this.envlist.push({
-          value: i, label: avp.LightPresets[i].name
-        });
-      }
-      this.$.env.options = this.envlist;
-      this.env = this.viewer.impl.currentLightPreset();
-
       this.exposure = this.viewer.impl.renderer().getExposureBias();
       this.ortho = !this.viewer.getCamera().isPerspective;
       this.fov = this.viewer.getFOV();
     },
 
-    _envChanged: function() {
-      if (this.viewer && this.env !== this.viewer.impl.currentLightPreset())
-        this.viewer.setLightPreset(this.env);
-    },
     _aaChanged: function() {
       if (this.viewer) this.viewer.setQualityLevel(this.ssao, this.aa);
     },

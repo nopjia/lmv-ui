@@ -6,7 +6,7 @@
   <template>
     <template is="dom-repeat" items="{{_envlist}}" as="env">
       <div class="env" value="{{env.value}}" on-click="_onEnvClick">
-        <img src="{{env.img}}">
+        <div class="img" style$="{{env.img}}"></div>
         <div class="label">{{env.label}}</div>
       </div>
     </template>
@@ -32,18 +32,18 @@
 
     ready: function() {
       var avp = Autodesk.Viewing.Private;
-      this._envlist = [];
+      var tmpList = [];
       for (var i=0; i<avp.LightPresets.length; i++) {
         var name = avp.LightPresets[i].name;
-        var imgsrc = "images/env-thumbs/" + format2(i) + "-" + name.toLowerCase().replace(/\ /g, "-") + ".png";
-        this._envlist.push({
+        var imgStr = "background-image: url(\"images/env-thumbs/" + format2(i) + "-" + name.toLowerCase().replace(/\ /g, "-") + ".png\")";
+        tmpList.push({
           value: i,
           label: name,
-          img: imgsrc,
+          img: imgStr,
         });
       }
-      // TODO_NOP: no idea wtf i need this
-      this._envlist = this._envlist.slice();
+      // finally set it here, to trigger Polymer change
+      this._envlist = tmpList;
     },
 
     attached: function() {
