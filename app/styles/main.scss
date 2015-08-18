@@ -12,13 +12,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
 
-body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  // TODO_NOP: this is not root
-  // need to put this in "html" and fix all "rem"
   font-size: 14px;
 }
 

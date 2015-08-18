@@ -38,16 +38,16 @@
     pointer-events: auto;
 
     lmv-tooltip {
-      font-size: .8rem;
+      font-size: 1.0rem;
     }
 
     > lmv-button, > lmv-button-menu::shadow lmv-button {
-      font-size: 1.5rem;
-      margin: 0 .2rem;
+      font-size: 1.8rem;
+      margin: 0 .3rem;
     }
     > lmv-button-menu .menu {
       overflow: hidden; // mask round corners
-      margin-bottom: .4rem;
+      margin-bottom: .6rem;
 
       lmv-button {
         background-color: transparent;
@@ -55,11 +55,11 @@
         &:hover {
           background-color: $color-bg-hover;
         }
-      }
 
-      iron-icon {
-        font-size: 1.5rem;
-        padding-right: .6rem;
+        iron-icon {
+          font-size: 1.8rem;
+          padding-right: .6rem;
+        }
       }
     }
   }
@@ -97,7 +97,7 @@
   }
 
   lmv-button {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   #search {
@@ -107,10 +107,10 @@
 
     > lmv-model-search {
       background-color: $color-bg;
-      padding: .7rem;
+      padding: .8rem;
 
       // rounded corners overlap
-      padding-right: 1.7rem;
+      padding-right: 1.8rem;
       margin-right: -1.0rem;
     }
   }
