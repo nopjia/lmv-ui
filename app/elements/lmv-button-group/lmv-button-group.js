@@ -12,17 +12,18 @@
     },
 
     _onActiveChange: function(event) {
-      // Avoid recursive calls
-      if (this._handlingChange) return;
+      if (this._handlingChange) // Avoid recursive calls
+        return;
+
       this._handlingChange = true;
 
-      var activating = event.detail.active;
       var btnClicked = event.target;
 
       var newActive, oldActive;
-      if (activating) {
+      if (event.detail.active) {
         oldActive = this._currActive;
-        oldActive && (oldActive.active = false); // This instruction will cause a recursive call.
+        if (oldActive)
+          oldActive.active = false;  // This instruction will cause a recursive call
         newActive = btnClicked;
       } else {
         oldActive = btnClicked;
