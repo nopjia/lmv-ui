@@ -91,6 +91,12 @@
       return this.createPanel("Render Settings", elem);
     },
 
+    createRenderEnvs: function() {
+      var elem = new LMVUI.RenderEnvs();
+      elem.viewer = this.viewer;
+      return this.createPanel("Environments", elem);
+    },
+
     createAnimationPlayer: function() {
       var elem = new LMVUI.AnimationPlayer();
       elem.viewer = this.viewer;

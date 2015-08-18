@@ -1,0 +1,80 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lmv-render-envs">
+  <link rel="import" type="css" href="lmv-render-envs.css">
+
+  <template>
+    <template is="dom-repeat" items="{{_envlist}}" as="env">
+      <div class="env" value="{{env.value}}" on-click="_onEnvClick">
+        <img src="{{env.img}}">
+        <div class="label">{{env.label}}</div>
+      </div>
+    </template>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  var format2 = function(num) {
+    return (("00" + Math.floor(num)).slice(-2));
+  };
+
+  LMVUI.RenderEnvs = Polymer({
+    is: "lmv-render-envs",
+
+    properties: {
+      index: {
+        type: Number,
+        reflectToAttribute: true,
+        observer: "_indexChanged",
+      }
+    },
+
+    ready: function() {
+      var avp = Autodesk.Viewing.Private;
+      this._envlist = [];
+      for (var i=0; i<avp.LightPresets.length; i++) {
+        var name = avp.LightPresets[i].name;
+        var imgsrc = "images/env-thumbs/" + format2(i) + "-" + name.toLowerCase().replace(/\ /g, "-") + ".png";
+        this._envlist.push({
+          value: i,
+          label: name,
+          img: imgsrc,
+        });
+      }
+      // TODO_NOP: no idea wtf i need this
+      this._envlist = this._envlist.slice();
+    },
+
+    attached: function() {
+      if (!LMVUI._getViewerReference(this))
+        return;
+
+      if (this.viewer.impl) {
+        this.index = this.viewer.impl.currentLightPreset();
+      }
+      else {
+        var self = this;
+        LMVUI._addViewerListener(this, Autodesk.Viewing.MODEL_ROOT_LOADED_EVENT, function() {
+          self.index = self.viewer.impl.currentLightPreset();
+        });
+      }
+    },
+
+    _indexChanged: function(newVal, oldVal) {
+      console.log("index changed '" + oldVal + "' to '" + newVal + "'");
+
+      if (this.viewer && this.index !== this.viewer.impl.currentLightPreset())
+        this.viewer.setLightPreset(this.index);
+    },
+
+    _onEnvClick: function(e) {
+      this.index = e.currentTarget.value;
+    },
+
+    detached: function() {
+      LMVUI._cleanupViewerListeners(this);
+    },
+  });
+})();
+</script>
