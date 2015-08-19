@@ -15,10 +15,6 @@
 
 <script>
 (function() {
-  var format2 = function(num) {
-    return (("00" + Math.floor(num)).slice(-2));
-  };
-
   LMVUI.RenderEnvs = Polymer({
     is: "lmv-render-envs",
 
@@ -35,7 +31,11 @@
       var tmpList = [];
       for (var i=0; i<avp.LightPresets.length; i++) {
         var name = avp.LightPresets[i].name;
-        var imgStr = "background-image: url(\"images/env-thumbs/" + format2(i) + "-" + name.toLowerCase().replace(/\ /g, "-") + ".png\")";
+        var imgStr =
+          "background-image: url(\"images/env-thumbs/" +
+          LMVUI.formatInt(i, 2) + "-" +
+          name.toLowerCase().replace(/\ /g, "-") +
+          ".png\")";
         tmpList.push({
           value: i,
           label: name,

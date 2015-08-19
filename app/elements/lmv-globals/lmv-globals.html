@@ -12,15 +12,43 @@
 <script>
 (function() {
 
-if (!window.LMVUI)
-  window.LMVUI = {};
+//---------------------------------------------------------
+// PUBLIC API
+//---------------------------------------------------------
 
-// for debug
+if (!window.LMVUI) {
+  window.LMVUI = {};
+}
+
+/**
+ * Takes a string of HTML syntax and returns the corresponding HTML element.
+ * The string can have any number of nested HTML elements, but it can only have one root element
+ * @param  {String} str HTML syntax
+ * @return {Object}     HTML element
+ */
 LMVUI.stringToDOM = function(str) {
   var d = document.createElement("div");
   d.innerHTML = str;
   return d.firstChild;
 };
+
+/**
+ * Truncates or pads the number to the specified amount of digits
+ * @param  {Number}  num    The number. If float, gets truncated to int.
+ * @param  {Integer} digits The number of digits
+ * @param  {String}  pad    (Optional) The padding string, defaults to "0"
+ * @return {String}         The resulting string
+ */
+LMVUI.formatInt = function(num, digits, pad) {
+  pad = pad || "0";
+  num = num.toFixed().slice(-digits);
+  return num.length >= digits ? num : new Array(digits - num.length + 1).join(pad) + num;
+};
+
+
+//---------------------------------------------------------
+// PRIVATE API
+//---------------------------------------------------------
 
 // lazily get and cache viewer
 var viewerElem, viewer;
