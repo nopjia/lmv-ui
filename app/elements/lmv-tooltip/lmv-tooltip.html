@@ -13,22 +13,23 @@
   LMVUI.Tooltip = Polymer({
     is: "lmv-tooltip",
 
-    attached: function() {
-      if (!this.target)
-        this.target = this.parentElement;
-
+    created: function() {
       this.hidden = true;
 
       this._onEnter = this._onEnter.bind(this);
       this._onLeave = this._onLeave.bind(this);
+    },
 
-      this.target.addEventListener("mouseenter", this._onEnter);
-      this.target.addEventListener("mouseleave", this._onLeave);
+    attached: function() {
+      if (!this.target)
+        this.target = this.parentElement;
+
+      LMVUI._addListener(this, this.target, "mouseenter", this._onEnter);
+      LMVUI._addListener(this, this.target, "mouseleave", this._onLeave);
     },
 
     detached: function() {
-      this.target.removeEventListener("mouseenter", this._onEnter);
-      this.target.removeEventListener("mouseleave", this._onLeave);
+      LMVUI._cleanupListeners(this);
     },
 
     _onEnter: function() {

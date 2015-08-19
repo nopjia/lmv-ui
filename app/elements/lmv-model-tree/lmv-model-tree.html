@@ -79,8 +79,8 @@
       });
 
       // track shift modifier key
-      document.addEventListener("keydown", _onShiftKey, true);
-      document.addEventListener("keyup", _onShiftKey, true);
+      LMVUI._addListener(this, document, "keydown", _onShiftKey, true);
+      LMVUI._addListener(this, document, "keyup", _onShiftKey, true);
     },
     setTree: function() {
       // clear
@@ -89,7 +89,7 @@
 
       var root = this.viewer.model.getRoot();
       if (!root) {
-        console.log("ERROR: no model instanceTree");
+        console.error("No model instanceTree");
         return;
       }
 
@@ -112,7 +112,7 @@
       elem.addEventListener("node-dblclick", this._onNodeDoubleClick);
       elem.addEventListener("node-expand", this._onNodeExpand);
       if (this.allNodes[dataNode.dbId])
-        console.log("ERROR: Duplicate dbId " + dataNode.dbId);
+        console.error("Duplicate dbId " + dataNode.dbId);
       this.allNodes[dataNode.dbId] = elem;
       return elem;
     },
@@ -139,9 +139,7 @@
       }
     },
     detached: function() {
-      LMVUI._cleanupViewerListeners(this);
-      document.removeEventListener("keydown", _onShiftKey, true);
-      document.removeEventListener("keyup", _onShiftKey, true);
+      LMVUI._cleanupListeners(this);
     },
   });
 })();

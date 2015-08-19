@@ -12,7 +12,7 @@
 (function() {
   var _lastX, _lastY;
   var _DELTA_EPS = 10;
-  var _isTouch;
+  var _isTouch = "ontouchstart" in window;
   var _longpressTimer;
   var _longpressDuration = 500;
   var _longpressJustOpened = false;
@@ -47,8 +47,8 @@
   }
 
   function onTouchStart(e) {
-    _lastX = e.touches[0].clientX;
-    _lastY = e.touches[0].clientY;
+    _lastX = _currX = e.touches[0].clientX;
+    _lastY = _currY = e.touches[0].clientY;
 
     var self = this;
     _longpressTimer = window.setTimeout(function() {
@@ -96,56 +96,35 @@
     },
 
     attached: function() {
-      this._isTouch = "ontouchstart" in window;
       if (!this.target)
         this.target = this.parentNode;
-      this.listen(this.target);
-    },
-    detached: function() {
-      this.unlisten(this.target);
-    },
 
-    listen: function(node) {
-      if (node && node.addEventListener) {
+      // add listeners
+      if (this.target && this.target.addEventListener) {
         this.onClickToCancel = onClickToCancel.bind(this);
         this.onContextMenu = onContextMenu.bind(this);
-        node.addEventListener("contextmenu", this.onContextMenu, false);
+        LMVUI._addListener(this, this.target, "contextmenu", this.onContextMenu, false);
 
         this.onMouseDown = onMouseDown.bind(this);
         this.onMouseUp = onMouseUp.bind(this);
-        node.addEventListener("mousedown", this.onMouseDown, true);
-        node.addEventListener("mouseup", this.onMouseUp, true);
-        window.addEventListener("mouseup", this.onClickToCancel, true);
+        LMVUI._addListener(this, this.target, "mousedown", this.onMouseDown, true);
+        LMVUI._addListener(this, this.target, "mouseup", this.onMouseUp, true);
+        LMVUI._addListener(this, window, "mouseup", this.onClickToCancel, true);
 
         if(_isTouch) {
           this.onTouchStart = onTouchStart.bind(this);
           this.onTouchEnd = onTouchEnd.bind(this);
           this.onTouchMove = onTouchMove.bind(this);
-          node.addEventListener("touchstart", this.onTouchStart, true);
-          node.addEventListener("touchend", this.onTouchEnd, true);
-          node.addEventListener("touchmove", this.onTouchMove, true);
-          window.addEventListener("touchend", this.onClickToCancel, true);
+          LMVUI._addListener(this, this.target, "touchstart", this.onTouchStart, true);
+          LMVUI._addListener(this, this.target, "touchend", this.onTouchEnd, true);
+          LMVUI._addListener(this, this.target, "touchmove", this.onTouchMove, true);
+          LMVUI._addListener(this, window, "touchend", this.onClickToCancel, true);
         }
       }
     },
-    unlisten: function(node) {
-      if (node && node.removeEventListener) {
-        node.removeEventListener("contextmenu", this.onContextMenu, false);
-
-        node.removeEventListener("mousedown", this.onMouseDown, true);
-        node.removeEventListener("mouseup", this.onMouseUp, true);
-        window.removeEventListener("mouseup", this.onClickToCancel, true);
-
-        if (_isTouch) {
-          node.removeEventListener("touchstart", this.onTouchStart, true);
-          node.removeEventListener("touchend", this.onTouchEnd, true);
-          node.removeEventListener("touchmove", this.onTouchMove, true);
-          window.removeEventListener("touchend", this.onClickToCancel, true);
-        }
-      }
-    }
-
-
+    detached: function() {
+      LMVUI._cleanupListeners(this);
+    },
   });
 })();
 </script>
