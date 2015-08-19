@@ -8,6 +8,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
+
+  min-width: 300px;
 }
 
 $size: 90px;
@@ -20,7 +22,7 @@ $size: 90px;
   width: $size;
   height: $size;
 
-  margin: .36rem;
+  margin: .35rem;
 
   cursor: pointer;
 
