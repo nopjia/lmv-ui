@@ -94,7 +94,7 @@
     },
 
     detached: function() {
-      LMVUI._cleanupViewerListeners(this);
+      LMVUI._cleanupListeners(this);
     },
   });
 })();

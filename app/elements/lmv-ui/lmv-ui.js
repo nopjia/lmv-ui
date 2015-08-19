@@ -172,7 +172,7 @@ this["create"+name](); return;
     },
 
     detached: function() {
-      LMVUI._cleanupViewerListeners(this);
+      LMVUI._cleanupListeners(this);
     },
 
   });
