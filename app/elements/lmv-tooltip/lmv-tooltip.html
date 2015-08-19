@@ -24,12 +24,12 @@
       if (!this.target)
         this.target = this.parentElement;
 
-      LMVUI._addListenee(this, this.target, "mouseenter", this._onEnter);
-      LMVUI._addListenee(this, this.target, "mouseleave", this._onLeave);
+      LMVUI._addListener(this, this.target, "mouseenter", this._onEnter);
+      LMVUI._addListener(this, this.target, "mouseleave", this._onLeave);
     },
 
     detached: function() {
-      LMVUI._cleanupListenees(this);
+      LMVUI._cleanupListeners(this);
     },
 
     _onEnter: function() {

@@ -88,27 +88,39 @@ LMVUI._getViewerReference = function(elem) {
 };
 
 // utility function for LMV elements to handle and cleanup event listeners
+// TODO_NOP: actually, is this okay? things that are being listened to will never garbage collect
 LMVUI._addViewerListener = function(elem, type, func) {
-  LMVUI._addListenee(elem, elem.viewer, type, func);
+  LMVUI._addListener(elem, elem.viewer, type, func);
 };
-LMVUI._addListenee = function(elem, listenee, type, func, capture) {
-  listenee.addEventListener(type, func, capture);
+LMVUI._addListener = function(elem, target, type, func, capture) {
+  if (!target || !target.addEventListener) {
+    console.log("ERROR: cannot addEventListener");
+    return;
+  }
+
+  target.addEventListener(type, func, capture);
   if (!elem._listenees)
     elem._listenees = [];
   elem._listenees.push({
-    listenee: listenee,
+    target: target,
     type: type,
     func: func,
     capture: capture
   });
 };
-LMVUI._cleanupListenees = function(elem) {
+LMVUI._cleanupListeners = function(elem) {
   if (!elem._listenees)
     return;
 
   for (var i=0; i<elem._listenees.length; i++) {
     var item = elem._listenees[i];
-    item.listenee.removeEventListener(item.type, item.func, item.capture);
+
+    if (!item.target.removeEventListener) {
+      console.log("ERROR: cannot removeEventListener");
+      continue;
+    }
+
+    item.target.removeEventListener(item.type, item.func, item.capture);
   }
   elem._listenees = undefined;
 };
