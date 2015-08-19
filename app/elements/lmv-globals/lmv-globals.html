@@ -58,7 +58,7 @@ LMVUI.getViewerElem = function() {
     return viewerElem;
   viewerElem = document.querySelector("lmv-viewer");
   if (!viewerElem) {
-    console.log("ERROR: Cannot find lmv-viewer element");
+    console.error("Cannot find lmv-viewer element");
     return;
   }
   return viewerElem;
@@ -69,7 +69,7 @@ LMVUI.getViewer = function() {
     return viewer;
   viewer = LMVUI.getViewerElem().viewer;
   if (!viewer) {
-    console.log("ERROR: Cannot find viewer from lmv-viewer element");
+    console.error("Cannot find viewer from lmv-viewer element");
     return;
   }
   return viewer;
@@ -78,11 +78,11 @@ LMVUI.getViewer = function() {
 // utility function for LMV elements to find viewer, if not specified
 LMVUI._getViewerReference = function(elem) {
   if (!elem.viewer) {
-    console.log("WARNING: "+elem.tagName+": No viewer specified, automatically grabbing viewer");
+    console.warn(elem.tagName+": No viewer specified, automatically grabbing viewer");
     elem.viewer = LMVUI.getViewer();
   }
   if (!elem.viewer) {
-    console.log("ERROR: "+elem.tagName+": Cannot find viewer");
+    console.error(elem.tagName+": Cannot find viewer");
   }
   return elem.viewer;
 };
@@ -93,11 +93,6 @@ LMVUI._addViewerListener = function(elem, type, func) {
   LMVUI._addListener(elem, elem.viewer, type, func);
 };
 LMVUI._addListener = function(elem, target, type, func, capture) {
-  if (!target || !target.addEventListener) {
-    console.log("ERROR: cannot addEventListener");
-    return;
-  }
-
   target.addEventListener(type, func, capture);
   if (!elem._listenees)
     elem._listenees = [];
@@ -114,12 +109,6 @@ LMVUI._cleanupListeners = function(elem) {
 
   for (var i=0; i<elem._listenees.length; i++) {
     var item = elem._listenees[i];
-
-    if (!item.target.removeEventListener) {
-      console.log("ERROR: cannot removeEventListener");
-      continue;
-    }
-
     item.target.removeEventListener(item.type, item.func, item.capture);
   }
   elem._listenees = undefined;
