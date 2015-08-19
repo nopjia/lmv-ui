@@ -99,6 +99,7 @@
       if (!this.target)
         this.target = this.parentNode;
 
+      // add listeners
       if (this.target && this.target.addEventListener) {
         this.onClickToCancel = onClickToCancel.bind(this);
         this.onContextMenu = onContextMenu.bind(this);
