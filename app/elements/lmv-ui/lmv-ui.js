@@ -120,6 +120,9 @@
       var button = e.currentTarget;
       var name = button.getAttribute("cmd");
 
+if (e.detail.active)
+this["create"+name](); return;
+
       if (!this._openedPanels)
         this._openedPanels = {};
 

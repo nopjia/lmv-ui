@@ -87,21 +87,30 @@ LMVUI._getViewerReference = function(elem) {
   return elem.viewer;
 };
 
-// utility function for LMV elements to handle and cleanup viewer event listeners
+// utility function for LMV elements to handle and cleanup event listeners
 LMVUI._addViewerListener = function(elem, type, func) {
-  elem.viewer.addEventListener(type, func);
-  if (!elem._viewerListeners)
-    elem._viewerListeners = {};
-  elem._viewerListeners[type] = func;
+  LMVUI._addListenee(elem, elem.viewer, type, func);
 };
-LMVUI._cleanupViewerListeners = function(elem) {
-  if (!elem._viewerListeners)
+LMVUI._addListenee = function(elem, listenee, type, func, capture) {
+  listenee.addEventListener(type, func, capture);
+  if (!elem._listenees)
+    elem._listenees = [];
+  elem._listenees.push({
+    listenee: listenee,
+    type: type,
+    func: func,
+    capture: capture
+  });
+};
+LMVUI._cleanupListenees = function(elem) {
+  if (!elem._listenees)
     return;
 
-  for (var k in elem._viewerListeners) {
-    elem.viewer.removeEventListener(k, elem._viewerListeners[k]);
+  for (var i=0; i<elem._listenees.length; i++) {
+    var item = elem._listenees[i];
+    item.listenee.removeEventListener(item.type, item.func, item.capture);
   }
-  elem._viewerListeners = undefined;
+  elem._listenees = undefined;
 };
 
 })(); // closure

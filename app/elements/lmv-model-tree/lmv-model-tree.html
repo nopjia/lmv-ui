@@ -79,8 +79,8 @@
       });
 
       // track shift modifier key
-      document.addEventListener("keydown", _onShiftKey, true);
-      document.addEventListener("keyup", _onShiftKey, true);
+      LMVUI._addListenee(this, document, "keydown", _onShiftKey, true);
+      LMVUI._addListenee(this, document, "keyup", _onShiftKey, true);
     },
     setTree: function() {
       // clear
@@ -139,9 +139,7 @@
       }
     },
     detached: function() {
-      LMVUI._cleanupViewerListeners(this);
-      document.removeEventListener("keydown", _onShiftKey, true);
-      document.removeEventListener("keyup", _onShiftKey, true);
+      LMVUI._cleanupListenees(this);
     },
   });
 })();
